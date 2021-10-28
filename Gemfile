@@ -37,6 +37,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara', '>= 3.26'
   gem 'ZenTest', '4.11.2'
+  gem 'guard-rails', require: false
 end
 
 group :development do
