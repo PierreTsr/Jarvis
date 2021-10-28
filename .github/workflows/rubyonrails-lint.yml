@@ -22,7 +22,7 @@ jobs:
         with:
           bundler-cache: true
       # Add or Replace any other security checks here
-      - name: Run security checks
+      # - name: Run security checks
       #  run: |
       #    bin/bundler-audit --update
       #    bin/brakeman -q -w2
