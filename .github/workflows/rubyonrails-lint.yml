@@ -27,6 +27,6 @@ jobs:
       #    bin/bundler-audit --update
       #    bin/brakeman -q -w2
       # Add or Replace any other Linters here
-      - name: Run linters
-        run: |
-          bin/rubocop --parallel
+      # - name: Run linters
+      #  run: |
+      #    bin/rubocop --parallel
