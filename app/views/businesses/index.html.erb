@@ -1,0 +1,14 @@
+<h1>Businesses</h1>
+<ul>
+  <% @businesses.each do |business| %>
+    <li>
+      <p>
+      <%= business.name %>
+      <%= business.display_phone %>
+      <%= business.location %>
+      <%= business.rating %>
+      </p>
+      <%= image_tag(business.img_url) %>
+    </li>
+  <% end %>
+</ul>
