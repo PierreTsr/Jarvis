@@ -4,6 +4,6 @@ class UsersController < ApplicationController
       
     # end 
     def questions
-      @questions = ['Where are you moving from?', 'Where are you moving to?']
+      @questions = ['Where are you moving from?', 'Where are you moving to?', 'What\'s your budget?']
     end 
 end
