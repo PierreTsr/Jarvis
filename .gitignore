@@ -41,3 +41,6 @@ yarn-debug.log*
 
 # RubyMine IDE config files
 .idea/*
+
+# MacOS config files
+*.DS_Store
