@@ -25,7 +25,7 @@ Scenario: answer questions and redirect to the Dashboard
 Scenario: missing answer
 
   Given I answer: France, , Student, 2
-  And I click on "Sbumit"
+  And I click on "Submit"
   Then I should be on the Landing page
   And I should see "Please fill in all the questions before proceeding to the dashboard"
 

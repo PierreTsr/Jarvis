@@ -22,4 +22,4 @@ Scenario: display positive results for "Groceries"
 Scenario: do not display negative results for "Groceries"
 
   Given I click on Groceries
-  Then I should not see Univeristy Hardware store
+  Then I should not see University Hardware store
