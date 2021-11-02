@@ -39,7 +39,7 @@
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
-                <%= form_with url: user_path, method: :post do |form| %>
+                <%= form_with model: User.new do |form| %>
                     <%= @questions.each do |id, question| %>
                         <div class="text-center questions">
                             <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>

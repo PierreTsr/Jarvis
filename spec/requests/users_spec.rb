@@ -26,9 +26,9 @@ RSpec.describe "Users", type: :request do
         to_city: "NYC",
         budget: 3
       }
-      expect(User).to receive(:check_answers)
+      expect(User).to receive(:check_answers?)
       expect(User).to receive(:create)
-      post user_path, params: { answers: answers }
+      post users_path, params: { answers: answers }
       expect(response).to redirect_to(dashboard_path)
     end
     describe "doesn't create a new user when answers" do
@@ -39,8 +39,8 @@ RSpec.describe "Users", type: :request do
           to_city: "NYC",
           budget: 3
         }
-        expect(User).to receive(:check_answers)
-        post user_path, params: { answers: answers }
+        expect(User).to receive(:check_answers?)
+        post users_path, params: { answers: answers }
         expect(response).to redirect_to(questions_path)
       end
 
@@ -50,8 +50,8 @@ RSpec.describe "Users", type: :request do
           to_city: "NYC",
           budget: "a"
         }
-        expect(User).to receive(:check_answers)
-        post user_path, params: { answers: answers }
+        expect(User).to receive(:check_answers?)
+        post users_path, params: { answers: answers }
         expect(response).to redirect_to(questions_path)
       end
     end

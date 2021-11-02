@@ -6,7 +6,7 @@ Feature: ask questions to the user and redirect it to the dashboard
 
 Background: on the question page, un-authenticated
 
-  Given I am on the Question page
+  Given I am on the Questions page
   And I am not authenticated
 
 Scenario: ask questions on the question page
