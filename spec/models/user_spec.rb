@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
       @questions.is_a? Hash
       @questions.each do |id, question|
         expect(id).to be_a Symbol
-        expect(question).to respond_to(:to_s)
+        expect(question).to be_a String
       end
     end
 
@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe ":check_answers" do
+  describe ":check_answers?" do
 
     before :each do
       @answers = {
@@ -35,22 +35,22 @@ RSpec.describe User, type: :model do
     end
 
     it "accepts correct answers" do
-      expect(User.check_answers @answers).to be_truthy
+      expect(User.check_answers? @answers).to be_truthy
     end
 
     User.get_questions.each_key do |key|
       it "rejects missing answer: #{key}" do
         @answers.delete key
-        expect(User.check_answers @answers).to be_falsey
+        expect(User.check_answers? @answers).to be_falsey
       end
     end
 
     User.get_questions.each_key do |key|
       it "rejects wrong type: #{key}" do
         @answers[key] = 0
-        int = User.check_answers @answers
+        int = User.check_answers? @answers
         @answers[key] = "abc"
-        str = User.check_answers @answers
+        str = User.check_answers? @answers
         expect(str && int).to be_falsey
       end
     end
