@@ -1,10 +1,7 @@
 class UsersController < ApplicationController
 
-    # def index
-    # end
-
     def create
-      answers = params[:answers]
+      answers = params[:user]
       unless User.check_answers?(answers)
         redirect_to questions_path
         flash.alert = "Sorry, we are unable to parse your answers. Please try again."
