@@ -1,3 +1,5 @@
+#require "support/inject_session"
+
 categories = %w[Groceries Hardware Restaurants Banks]
 
 Then /I should see all the categories/ do
@@ -7,6 +9,5 @@ Then /I should see all the categories/ do
 end
 
 Given /I am in "(.*)"/ do |location|
-  user = User.find(session[:user])
-  user.to_city = location
+  page.set_rack_session(zip_code: location)
 end
