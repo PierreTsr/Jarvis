@@ -39,6 +39,7 @@ group :development, :test do
   gem 'ZenTest', '4.11.2'
   gem 'guard-rails', require: false
   gem 'guard-rspec', require: false
+  gem 'rack_session_access'
 end
 
 group :development do
