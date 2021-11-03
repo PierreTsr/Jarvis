@@ -61,4 +61,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Access to rack session
+  config.middleware.use RackSessionAccess::Middleware
 end

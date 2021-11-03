@@ -9,7 +9,7 @@ class User < ApplicationRecord
       from_country: "Which country are you coming from?",
       to_city: "Which city are you traveling to?",
       work: "What is your work category?",
-      budget: "What is your budget"
+      budget: "What is your budget?"
     }
   end
 
@@ -38,8 +38,6 @@ class User < ApplicationRecord
         return false unless answers[name].is_a? String
       when :integer then
         return false unless answers[name].is_a? Integer
-      when :integer then
-        return false unless answers[name].is_a? DateTime
       else
         puts "Warning", type.class
       end
