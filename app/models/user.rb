@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class User < ApplicationRecord
   has_secure_password
   enum work: { student: 0, professional: 1 }
@@ -35,5 +37,14 @@ class User < ApplicationRecord
     end
 
     return true
+  end
+
+  def self.create_from_answers(answers)
+    answers[:username] = SecureRandom.uuid
+    answers[:password_digest] = "tmp" #TODO: fix that
+    answers[:email] = ""
+    puts answers
+    byebug
+    return self.create!(answers)
   end
 end
