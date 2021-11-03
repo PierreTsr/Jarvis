@@ -6,20 +6,19 @@ Feature: choose a category and see relevant recommendation
 
 Background:
 
-  Given I am on the Dashboard page
-  And I am authenticated
+  Given I am in "10025"
+  Given I am on the Category page
 
 Scenario: display all the categories
 
   Then I should see all the categories
 
-Scenario: display positive results for "Groceries"
+Scenario: display positive results for "groceries"
 
-  Given I press "Groceries"
-  And I am in "Morningside Heights"
+  Given I follow "groceries"
   Then I should see "Westside Market"
 
-Scenario: do not display negative results for "Groceries"
+Scenario: do not display negative results for "groceries"
 
-  Given I press "Groceries"
+  Given I follow "groceries"
   Then I should not see "University Hardware store"
