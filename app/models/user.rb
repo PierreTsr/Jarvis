@@ -10,7 +10,7 @@ class User < ApplicationRecord
       budget: "What is your budget"
     }
   end
-
+  
   def self.check_answers?(answers)
     unasked_fields = [:id, :username, :email, :password_digest, :created_at, :updated_at]
     User.columns_hash.each do |name, v|

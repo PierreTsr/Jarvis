@@ -1,36 +1,53 @@
-var totalQuestions = $('.questions').size();
+// var totalQuestions = $('.questions').size();
+// console.log(totalQuestions)
+// var currentQuestion = 0;
 
-var currentQuestion = 0;
+// $questions = $('.questions');
+// $submit_bt = $('.submit_bt');
+// $next_bt = $('.next');
 
-$questions = $('.questions');
+// $questions.hide(); //css('visibility','hidden');
+// $submit_bt.hide();
 
-// $questions.hide();
-$questions.css('display', 'none');
-$($questions.get(currentQuestion)).fadeIn();
+// $($questions.get(currentQuestion)).fadeIn(); //css('visibility','visible')
 
-$('.next').click(function () {
+// $('.next').click(function () {
 
-    //fade out the current question,
-    //putting a function inside of fadeOut calls that function 
-    //immediately after fadeOut is completed, 
-    //this is for a smoother transition animation
-    $($questions.get(currentQuestion)).fadeOut(function () {
+//     if (currentQuestion < totalQuestions - 1) {
+//         $($questions.get(currentQuestion)).fadeOut(function () {
+        
+//             $(this).remove();
+//             currentQuestion += 1 
+//             $($questions.get(currentQuestion)).fadeIn();
 
-       //increment the current question by one
-       currentQuestion = currentQuestion + 1;
-        console.log(currentQuestion)
-       //if there are no more questions do stuff
-       if (currentQuestion == totalQuestions) {
-           
-           //Redirect to businesses page here 
-           console.log('showed all questions')
+//         });
+       
+//     } else {
+//         console.log()
+//         $next_bt.hide();
+//         $submit_bt.show()
+//     }
+//     //fade out the current question,
+// //     $($questions.get(currentQuestion)).fadeOut(function () {
+        
+// //        //increment the current question by one
+// //         currentQuestion = currentQuestion + 1;
+// //         console.log(currentQuestion)
+// //        //if there are no more questions do stuff
+// //        if (currentQuestion == totalQuestions) {
+// //             $next_bt.hide();
+// //             //$submit_bt.show();
+// //            //Redirect to businesses page here 
+// //            console.log('at the last question')
 
-       } else {
-           $(this).remove();
-           //otherwise show the next question
-           $($questions.get(currentQuestion)).fadeIn();
+// //        } else {
+// //            $(this).remove();
+// //            $submit_bt.show()
+// //            //otherwise show the next question
+// //            console.log("HERE: ")
+// //            $($questions.get(currentQuestion)).fadeIn();
 
-       }
-   });
+// //        }
+// //    });
 
-});
+// });
