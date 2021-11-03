@@ -49,33 +49,30 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Categories</h1>
-        <p class="lead text-muted">Please select a business cateogry.</p>
-        
+        <h1 class="fw-light">Recommendations</h1>
+        <p class="lead text-muted">Here Are Your <%= params[:category].capitalize %> Recommendations Based on Your Answers</p>
+        <%= link_to "Back to Categories", categories_path, class:"btn btn-sm btn-outline-secondary" %>
       </div>
     </div>
   </section>
 
   <div class="album py-5 bg-light">
     <div class="container">
+    <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% @categories.each do |category| %>
+      <% @businesses.each do |business| %>
         <div class="col">
           <div class="card shadow-sm">
-          <%= image_tag(category + '.jpg', class:"card-img-top", style:"object-fit:cover; object-position: bottom;width:100%; height:225px;") %>
-            <%# <img src="/assets/joes.jpg" class="card-img-top" style="object-fit:cover; object-position: bottom;width:100%; height:225px;"> %>
+            <%= image_tag((business['img_url'] == '' ? business.category + '.jpg' : business.img_url), class: "card-img-top", style: 'object-fit:cover; object-position: center;width:100%; height:225px;') %>
             <div class="card-body">
-              <%# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> %>
                <div class="d-flex justify-content-between align-items-center">
-                 <p> <%= category.capitalize %> </p>
+                 <p> <%= business.name %> </p>
+                 <small class="text-muted rating" style="margin-bottom: 1rem;"> <%= business.rating %>/5.0 </small>
                </div>
+              
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <%= link_to "See Recommendations", recommendations_path(:category => category), class:"btn btn-sm btn-outline-secondary" %>
-                  <%# <button type="button" class="btn btn-sm btn-outline-secondary" >See Recommendations</button> %>
-                  
-                </div>
-                <%# <small class="text-muted"> <%= business.price  </small> %>
+                <p style="text-align: left;" class="text-muted"><%= business.display_phone %></p>
+                <small class="text-muted"> <%= business.price %> </small>
               </div>
             </div>
           </div>
