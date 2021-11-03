@@ -30,3 +30,11 @@ jobs:
       # - name: Run linters
       #  run: |
       #    bin/rubocop --parallel
+      
+      - name: Run RSpect tests
+        run: |
+           bundle exec rspec
+           
+      - name: Run Cucumber tests
+        run: |
+           bundle exec cucumber
