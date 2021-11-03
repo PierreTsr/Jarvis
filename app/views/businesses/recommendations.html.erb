@@ -50,7 +50,7 @@
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Recommendations</h1>
-        <p class="lead text-muted">Here Are Your <%= params[:category].capitalize %> Recommendations Based on Your Answers</p>
+        <p class="lead text-muted">Here Are Your <%= params[:category].capitalize %> Recommendations</p>
         <%= link_to "Back to Categories", categories_path, class:"btn btn-sm btn-outline-secondary" %>
       </div>
     </div>
@@ -69,10 +69,13 @@
                  <p> <%= business.name %> </p>
                  <small class="text-muted rating" style="margin-bottom: 1rem;"> <%= business.rating %>/5.0 </small>
                </div>
-              
               <div class="d-flex justify-content-between align-items-center">
                 <p style="text-align: left;" class="text-muted"><%= business.display_phone %></p>
                 <small class="text-muted"> <%= business.price %> </small>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <a style="outline:none;color:#000;text-decoration:none;border:1px solid #000; padding: 0rem 0.5rem;" href="tel:" + <%= business.phone %>>Call</a>
+                <p class="text-muted" style="margin-top:auto;margin-bottom:auto;"><%= business.zip_code %></p>
               </div>
             </div>
           </div>
