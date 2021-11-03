@@ -2,14 +2,15 @@ class UsersController < ApplicationController
 
     def create
       answers = answers_params
-      work_type = answers[:work].downcase
-      answers[:work] = work_type == 'student' ? 0 : 1
-      puts answers
-      answers[:work] = Integer(answers[:work]) unless answers[:work].nil?
-      answers[:budget] = Integer(answers[:budget]) unless answers[:budget].nil?      
+      answers.each do |key, value| 
+        answers[key] = value.strip
+      end
+      work_type = answers[:work].downcase unless answers[:work].nil?
+      answers[:work] = work_type == 'student' ? 0 : 1 unless work_type.nil?
+      answers[:budget] = Integer(answers[:budget]) if (answers[:budget].acts_like? :string) && answers[:budget].match(/^\s*\d+\s*$/)
       unless User.check_answers?(answers)
         flash.alert = "Sorry, we are unable to parse your answers. Please try again."
-        #redirect_to questions_path
+        redirect_to questions_path
       else
         user = User.create_from_answers(answers)
         session[:zip_code] = answers[:to_city]
@@ -18,9 +19,9 @@ class UsersController < ApplicationController
     end
 
     def questions
-      puts User.get_questions
       @questions = User.get_questions
       @placeholders = User.get_placeholder_questions
+      render :questions
     end 
     
     private
