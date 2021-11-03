@@ -12,6 +12,15 @@ class User < ApplicationRecord
       budget: "What is your budget"
     }
   end
+
+  def self.get_placeholder_questions
+    return {
+      from_country: "India",
+      to_city: "10025",
+      work: "Student/Professional",
+      budget: "2000"
+    }
+  end
   
   def self.check_answers?(answers)
     unasked_fields = [:id, :username, :email, :password_digest, :created_at, :updated_at]
@@ -20,7 +29,7 @@ class User < ApplicationRecord
       name = name.to_sym
       next if unasked_fields.include? name
 
-      if answers[name].nil?
+      if answers[name].nil? or answers[name] == ""
         return false
       end
 
@@ -43,7 +52,6 @@ class User < ApplicationRecord
     answers[:username] = SecureRandom.uuid
     answers[:password_digest] = "tmp" #TODO: fix that
     answers[:email] = ""
-    puts answers
     return self.create!(answers)
   end
 end

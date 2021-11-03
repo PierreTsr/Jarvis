@@ -2,12 +2,14 @@ class UsersController < ApplicationController
 
     def create
       answers = answers_params
+      work_type = answers[:work].downcase
+      answers[:work] = work_type == 'student' ? 0 : 1
       puts answers
       answers[:work] = Integer(answers[:work]) unless answers[:work].nil?
       answers[:budget] = Integer(answers[:budget]) unless answers[:budget].nil?      
       unless User.check_answers?(answers)
-        redirect_to questions_path
         flash.alert = "Sorry, we are unable to parse your answers. Please try again."
+        #redirect_to questions_path
       else
         user = User.create_from_answers(answers)
         session[:zip_code] = answers[:to_city]
@@ -16,7 +18,9 @@ class UsersController < ApplicationController
     end
 
     def questions
+      puts User.get_questions
       @questions = User.get_questions
+      @placeholders = User.get_placeholder_questions
     end 
     
     private
