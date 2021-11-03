@@ -15,12 +15,15 @@ ActiveRecord::Schema.define(version: 2021_10_31_030505) do
   create_table "businesses", force: :cascade do |t|
     t.string "name"
     t.string "category"
-    t.string "location"
+    t.string "address"
+    t.string "zip_code"
     t.string "price"
     t.string "phone"
     t.string "display_phone"
     t.float "rating"
     t.string "img_url"
+    t.float "longitude"
+    t.float "latitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
