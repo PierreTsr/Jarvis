@@ -17,8 +17,8 @@ RSpec.describe User, type: :model do
 
     it "matches the model attributes" do
       const_fields = [:id, :username, :email, :password_digest, :created_at, :updated_at]
-      User.column_names do |id|
-        expect(@question.keys).to include id unless const_fields.include? id
+      User.column_names.each do |id|
+        expect(@questions.keys).to include id.to_sym unless const_fields.include? id.to_sym
       end
     end
   end

@@ -14,7 +14,7 @@ RSpec.describe "Users", type: :request do
         budget: "What is your budget?"
       })
       get questions_path
-      expect(response).to render_template(questions_path)
+      expect(response).to render_template(:questions)
     end
   end
 
@@ -24,12 +24,13 @@ RSpec.describe "Users", type: :request do
       answers = {
         from_country: "USA",
         to_city: "NYC",
-        budget: 3
+        work: "student",
+        budget: "3"
       }
-      expect(User).to receive(:check_answers?)
-      expect(User).to receive(:create)
-      post users_path, params: { answers: answers }
-      expect(response).to redirect_to(dashboard_path)
+      expect(User).to receive(:check_answers?).and_return(true)
+      expect(User).to receive(:create_from_answers)
+      post users_path, params: { user: answers }
+      expect(response).to redirect_to(categories_path)
     end
     describe "doesn't create a new user when answers" do
 
@@ -39,8 +40,8 @@ RSpec.describe "Users", type: :request do
           to_city: "NYC",
           budget: 3
         }
-        expect(User).to receive(:check_answers?)
-        post users_path, params: { answers: answers }
+        expect(User).to receive(:check_answers?).and_return(false)
+        post users_path, params: { user: answers }
         expect(response).to redirect_to(questions_path)
       end
 
@@ -50,8 +51,8 @@ RSpec.describe "Users", type: :request do
           to_city: "NYC",
           budget: "a"
         }
-        expect(User).to receive(:check_answers?)
-        post users_path, params: { answers: answers }
+        expect(User).to receive(:check_answers?).and_return(false)
+        post users_path, params: { user: answers }
         expect(response).to redirect_to(questions_path)
       end
     end
