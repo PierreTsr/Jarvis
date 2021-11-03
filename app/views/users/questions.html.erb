@@ -29,7 +29,12 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="#about">About us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Recommendations</a></li>
+                        <%= content_tag :li ,class: "nav-item" do%>
+                            <%=link_to  recommendations_path, class:"nav-link" do%>
+                            <i class="batch-icon batch-icon-search"></i>
+                            Recommendations
+                            <%end%>
+                        <%end%>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     </ul>
                 </div>

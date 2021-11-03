@@ -44,7 +44,6 @@ class User < ApplicationRecord
     answers[:password_digest] = "tmp" #TODO: fix that
     answers[:email] = ""
     puts answers
-    byebug
     return self.create!(answers)
   end
 end

@@ -10,7 +10,8 @@ class UsersController < ApplicationController
         flash.alert = "Sorry, we are unable to parse your answers. Please try again."
       else
         user = User.create_from_answers(answers)
-        redirect_to dashboard_path(user.id)
+        session[:zip_code] = answers[:to_city]
+        redirect_to categories_path
       end
     end
 
