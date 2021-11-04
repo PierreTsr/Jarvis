@@ -2,8 +2,11 @@
 
 Team Members
 Parth Jawale pcj2105
+
 Aidai Beishekeeva ab5248 
+
 Emily Rhyu er3067
+
 Pierre Tessier pht2119
 
 
