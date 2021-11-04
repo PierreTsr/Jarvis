@@ -80,6 +80,8 @@
   }
 }
 
+
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -11519,12 +11521,12 @@ body {
   #mainNav .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
   }
-  /* #mainNav .nav-link:active {
+  #mainNav .nav-link:active {
     color: #fff;
-  } */
-  /* #mainNav.navbar-shrink {
+  }
+  #mainNav.navbar-shrink {
     background-color: #fff;
-  } */
+  }
   #mainNav.navbar-shrink .navbar-brand {
     color: #000;
   }
@@ -11699,14 +11701,18 @@ body {
   padding: 5rem 0;
 }
 
-.questions input {
-  border-style: none none solid none;
-  outline: none;
+/* Stuff from Bootstrap Album */
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
-#answer {
-  margin-top: 15%;
-}
-form {
-  text-align: center;
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
 }
