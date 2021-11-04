@@ -1,5 +1,3 @@
-#require "support/inject_session"
-
 categories = %w[Groceries Hardware Restaurants Banks]
 
 Then /I should see all the categories/ do
