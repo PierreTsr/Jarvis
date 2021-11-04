@@ -1,24 +1,49 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Team Members
+Parth Jawale pcj2105
+Aidai Beishekeeva ab5248 
+Emily Rhyu er3067
+Pierre Tessier pht2119
 
-Things you may want to cover:
 
-* Ruby version
+Instructions to run:
+```
+bundle install 
+bundle exec rake db:setup 
+bundle exec rake db:migrate 
+bundle exec rake db:seed 
+bundle exec rails s
+```
 
-* System dependencies
+Instructions to test: 
+```
+bundle exec rake db:seed RAILS_ENV=test
+bundle exec rspec 
+bundle exec cucumber 
+```
 
-* Configuration
+Heroku link: 
+https://fast-lake-44748.herokuapp.com/
 
-* Database creation
 
-* Database initialization
+Github link: 
+https://github.com/PierreTsr/Jarvis/
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+Info for project iteration1:
 
-* Deployment instructions
+Jarvis is a recommendation web-tool for people who are moving from different cities. 
 
-* ...
+We have 4 pages available for projecti iteration 1. 
+
+Page 1: Landing page with little info on the website
+
+Page 2: Questions page where the user has to fill out the info about themselves. So far, we have test data for Columbia area. Try putting 10025 or 10027 as a zip code when answering the questions. 
+
+Page 3: Categories page with different businesses 
+
+Page 4: Businesses within given categories and for the given zipcode on Page2. If there are no businesses for the index, the page will be blank. 
+
+
+
