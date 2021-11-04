@@ -1,6 +1,7 @@
 # README
 
-Team Members
+Team members:
+
 Parth Jawale pcj2105
 
 Aidai Beishekeeva ab5248 
@@ -34,11 +35,11 @@ Github link:
 https://github.com/PierreTsr/Jarvis/
 
 
-Info for project iteration1:
+## Info for project iteration1
 
 Jarvis is a recommendation web-tool for people who are moving from different cities. 
 
-We have 4 pages available for projecti iteration 1. 
+We have 4 pages available for project iteration 1. 
 
 Page 1: Landing page with little info on the website
 
