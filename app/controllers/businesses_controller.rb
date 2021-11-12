@@ -6,7 +6,8 @@ class BusinessesController < ApplicationController
   def recommendations
     if !params[:category].nil?
       category = params[:category]
-      @businesses = Business.new.get_business_from_category(category)
+      zip_code = session[:zip_code] 
+      @businesses = Business.new.get_business_from_category(category, zip_code)
     else
       redirect_to categories_path
     end

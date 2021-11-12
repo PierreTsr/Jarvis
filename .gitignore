@@ -39,6 +39,11 @@
 yarn-debug.log*
 .yarn-integrity
 
+# RubyMine IDE config files
+.idea/*
+
+# MacOS config files
+*.DS_Store
 app/views/.DS_Store
 .DS_Store
 app/.DS_Store

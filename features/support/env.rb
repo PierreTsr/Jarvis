@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require "rack_session_access/capybara"
 
 # frozen_string_literal: true
 

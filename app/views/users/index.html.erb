@@ -34,7 +34,8 @@
                             Recommendations
                             <%end%>
                         <%end%>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+                        
+                        <li class="nav-item"><%= link_to "Get started", questions_path, class: "nav-link" %></li>
                     </ul>
                 </div>
             </div>
@@ -64,7 +65,7 @@
                         </p>
                     </div>
                 </div>
-                <img class="img-fluid" src="assets/ipad.png" alt="..." />
+                <%= image_tag "ipad.png", calss: "img-fluid", alt: "..." %>
             </div>
         </section>
         <!-- Projects-->
@@ -72,7 +73,7 @@
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
                 <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/food-rec.jpg" alt="..." /></div>
+                    <div class="col-xl-8 col-lg-7"><%= image_tag "food-rec.jpg", class: "img-fluid mb-3 mb-lg-0", alt: "..."%></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
                             <h4>Hungry?</h4>
@@ -81,7 +82,7 @@
                 </div>
                 <!-- Project One Row-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/cart.jpg" alt="..." /></div>
+                    <div class="col-lg-6"><%= image_tag "cart.jpg", class: "img-fluid"%></div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -96,7 +97,7 @@
                 </div>
                 <!-- Project Two Row-->
                 <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/bank.jpg" alt="..." /></div>
+                    <div class="col-lg-6"><%= image_tag "bank.jpg", class: "img-fluid"%></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -112,7 +113,7 @@
             </div>
         </section>
         <!-- Signup-->
-        <section class="signup-section" id="signup">
+        <%# <section class="signup-section" id="signup">
             <div class="container px-4 px-lg-5">
             
                 <div class="row gx-4 gx-lg-5">
@@ -152,7 +153,7 @@
 
                 </div>
             </div>
-        </section>
+        </section> %>
 
         <!-- Contact-->
         <%# <section class="contact-section bg-black">
@@ -197,7 +198,7 @@
             </div>
         </section> %>
         <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2021</div></footer>
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Jarvis 2021</div></footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

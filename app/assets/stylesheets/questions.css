@@ -11519,12 +11519,12 @@ body {
   #mainNav .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
   }
-  #mainNav .nav-link:active {
+  /* #mainNav .nav-link:active {
     color: #fff;
-  }
-  #mainNav.navbar-shrink {
+  } */
+  /* #mainNav.navbar-shrink {
     background-color: #fff;
-  }
+  } */
   #mainNav.navbar-shrink .navbar-brand {
     color: #000;
   }
@@ -11706,4 +11706,7 @@ body {
 
 #answer {
   margin-top: 15%;
+}
+form {
+  text-align: center;
 }
