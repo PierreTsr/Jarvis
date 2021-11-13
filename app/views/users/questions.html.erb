@@ -127,5 +127,32 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete">
+        </script>
+        <script>
+            let autocomplete;
+            function initAutoComplete() {
+                autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById('user_to_city'),
+                    {
+                        types: ['address'],
+                        componentRestrictions: {country : ['US']},
+                        fields: ["place_id", "geometry", "name", "address_components"]
+                    }
+                )
+                autocomplete.addListener('place_changed', (e) => {
+                    let place = autocomplete.getPlace()
+                    let address_components = place.address_components
+                    let postal_code_array = address_components.filter(comp => {
+                        // console.log(comp.types, comp.types.indexOf("postal_code") > -1)
+                        return comp.types.indexOf("postal_code") > -1
+                    })
+                    let place_coordinates = [place.geometry.location.lat(), place.geometry.location.lng()] // [Latitude, Longitude]
+                    let zip_code = postal_code_array[0].long_name                                          // 10025
+                    // Need to send this to backend somehow. Can add a hidden text-field in the form to do so.
+                })
+            }
+        </script>
     </body>
 </html>

@@ -12,7 +12,8 @@ class UsersController < ApplicationController
         flash.alert = "Sorry, we are unable to parse your answers. Please try again."
         redirect_to questions_path
       else
-        user = User.create_from_answers(answers)
+        # user = User.create_from_answers(answers)
+        puts answers[:to_city]
         session[:zip_code] = answers[:to_city]
         redirect_to categories_path
       end
