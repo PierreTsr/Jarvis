@@ -142,3 +142,12 @@ businesses = [
 businesses.each do |business|
   Business.create!(business)
 end
+
+users = [
+  {username: "Pierre", from_country: "France", to_city: "10023", work: "student", budget: 2, email: "test@mail.com", password: "lalala"},
+  {username: "Parth", from_country: "India", to_city: "10025", work: "professional", budget: 3, email: "parth@test.com", password: "lololo"}
+]
+
+users.each do |user|
+	User.create!(user)
+end
