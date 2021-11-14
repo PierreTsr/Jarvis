@@ -8,30 +8,42 @@ RSpec.describe "Users", type: :request do
   describe "GET /questions" do
 
     it 'asks questions to the users' do
-      expect(User).to receive(:get_questions).and_return({
+      expect(User).to receive(:questions).and_return({
         from_country: "Which country are you coming from?",
         to_city: "Which city are you going to?",
         budget: "What is your budget?"
       })
-      get questions_path
+      get questions_users_path
       expect(response).to render_template(:questions)
     end
   end
 
-  describe "POST /create" do
+  describe "POST /answer" do
 
-    it "creates a new user if answers are OK" do
+    it "redirects to sign up if answers are OK and :create_account" do
       answers = {
         from_country: "USA",
         to_city: "NYC",
         work: "student",
         budget: "3"
       }
-      expect(User).to receive(:check_answers?).and_return(true)
-      expect(User).to receive(:create_from_answers)
-      post users_path, params: { user: answers }
+      expect(User).to receive(:clean_answers).and_return(answers)
+      post answer_users_path, params: { user: answers, create_account: "true" }
+      expect(response).to redirect_to(new_user_registration_path)
+    end
+
+    it "redirects categories if answers are OK and not :create_account" do
+      answers = {
+        from_country: "USA",
+        to_city: "NYC",
+        work: "student",
+        budget: "3"
+      }
+      expect(User).to receive(:clean_answers).and_return(answers)
+      post answer_users_path, params: { user: answers}
       expect(response).to redirect_to(categories_path)
     end
+
     describe "doesn't create a new user when answers" do
 
       it "are empty" do
@@ -40,9 +52,9 @@ RSpec.describe "Users", type: :request do
           to_city: "NYC",
           budget: 3
         }
-        expect(User).to receive(:check_answers?).and_return(false)
-        post users_path, params: { user: answers }
-        expect(response).to redirect_to(questions_path)
+        expect(User).to receive(:clean_answers).and_return(nil)
+        post answer_users_path, params: { user: answers }
+        expect(response).to redirect_to(questions_users_path)
       end
 
       it "are incorrect" do
@@ -51,9 +63,9 @@ RSpec.describe "Users", type: :request do
           to_city: "NYC",
           budget: "a"
         }
-        expect(User).to receive(:check_answers?).and_return(false)
-        post users_path, params: { user: answers }
-        expect(response).to redirect_to(questions_path)
+        expect(User).to receive(:clean_answers).and_return(nil)
+        post answer_users_path, params: { user: answers }
+        expect(response).to redirect_to(questions_users_path)
       end
     end
   end

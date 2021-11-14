@@ -38,6 +38,21 @@
                             <%end%>
                         <%end%>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+						<% if user_signed_in? %>
+							<%= content_tag :li, class: "nav-item" do %>
+								<%= link_to destroy_user_session_path, method: "delete", class: "nav-link" do %>
+									<i class="batch-icon batch-icon-search"></i>
+									Sign Out
+								<% end %>
+							<% end %>
+						<% else %>
+							<%= content_tag :li, class: "nav-item" do %>
+								<%= link_to new_user_session_path, class: "nav-link" do %>
+									<i class="batch-icon batch-icon-search"></i>
+									Sign In
+								<% end %>
+							<% end %>
+						<% end %>
                     </ul>
                 </div>
             </div>

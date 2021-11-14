@@ -44,10 +44,10 @@
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
-                <%= form_with model: User.new do |form| %>
+                <%= form_with model: User.new, url: {action: :answer} do |form| %>
                     <% @questions.each do |id, question| %>
                         <div class="text-center questions">
-                            <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>
+                           <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>
                            <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.text_field id, placeholder: @placeholders[id], required: true %></h4>
                              
                              <!--<% if id == 'budget' %>
@@ -59,6 +59,12 @@
                             <%# <a class="btn btn-primary next" >Next</a> %>
                         </div>
                     <% end %>
+                    <div class="text-center questions">
+                      <h2 class="mx-auto my-0 text-uppercase">
+                        <%= form.label :create_account, "Create an account?" %>
+                        <%= check_box_tag :create_account, true, false %>
+                      </h2>
+                    </div>
                     <%= form.submit "Submit", :class => 'btn btn-primary submit_bt'%>
                 <% end %>
 
