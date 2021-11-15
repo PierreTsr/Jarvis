@@ -1,6 +1,7 @@
 require 'securerandom'
 
 class User < ApplicationRecord
+	validates_presence_of :from_country, :to_city, :work, :budget
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 	devise :database_authenticatable, :registerable,
