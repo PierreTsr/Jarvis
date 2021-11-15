@@ -41,7 +41,7 @@ class User < ApplicationRecord
 		@@types.each do |name, type|
 			case type
 				when :string then
-					return nil unless answers[name].is_a? String
+					return nil unless (answers[name].is_a? String) && (answers[name].length > 0)
 				when :integer then
 					return nil unless answers[name].is_a? Integer
 				else
