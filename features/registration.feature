@@ -18,7 +18,7 @@ Scenario: create an account
   And I press "Submit"
   Then I should be on the Sign Up page
   Given I fill in "user_email" with "test@test.com"
-  And I fill in "user_username" with "test"
+  And I fill in "user_name" with "test"
   And I fill in "user_password" with "testtest"
   And I fill in "user_password_confirmation" with "testtest"
   And I press "Sign up"

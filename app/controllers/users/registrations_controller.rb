@@ -18,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	protected
 
 	def configure_permitted_parameters
-		devise_parameter_sanitizer.permit(:sign_up, keys: [:from_country, :to_city, :work, :budget, :username])
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:from_country, :to_city, :work, :budget, :name])
 	end
 
 	def after_sign_up_path_for(resource)

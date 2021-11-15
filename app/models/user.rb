@@ -55,7 +55,7 @@ class User < ApplicationRecord
 
 	def self.create_guest(answers)
 		answers = self.clean_answers answers
-		answers[:username] = "Guest"
+		answers[:name] = "Guest"
 		return User.new answers
 	end
 end

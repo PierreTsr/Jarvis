@@ -1,5 +1,5 @@
 def create_user(country, city, work, budget)
-	@test_user = User.new(username: "Jacques", email: "jacques@test.com", password: "lololo", from_country: country,
+	@test_user = User.new(name: "Jacques", email: "jacques@test.com", password: "lololo", from_country: country,
 						  to_city: city, work: work, budget: budget)
 end
 
