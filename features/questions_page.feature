@@ -7,6 +7,7 @@ Feature: ask questions to the user and redirect it to the dashboard
 Background: on the question page, un-authenticated
 
   Given I am on the Questions page
+  And I am not authenticated
 
 Scenario: ask questions on the question page
 
@@ -18,6 +19,7 @@ Scenario: ask questions on the question page
 Scenario: answer questions and redirect to the Dashboard
 
   Given I answer all the questions with: France, New-York, Student, 2
+  Given I uncheck "create_account"
   And I press "Submit"
   Then I should be on the Category page
 
