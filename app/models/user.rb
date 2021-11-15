@@ -7,16 +7,19 @@ class User < ApplicationRecord
   def self.get_questions
     return {
       from_country: "Which country are you coming from?",
-      to_city: "Which city are you traveling to?",
+      address: "Which city are you traveling to?",
       work: "What is your work category?",
-      budget: "What is your budget?"
+      budget: "What is your budget?",
+      zip_code: "",
+      latitude: "",
+      longitude: ""
     }
   end
 
   def self.get_placeholder_questions
     return {
       from_country: "India",
-      to_city: "10025",
+      address: "2960 Broadway",
       work: "Student/Professional",
       budget: "2000"
     }
@@ -30,19 +33,29 @@ class User < ApplicationRecord
       next if unasked_fields.include? name
 
       if answers[name].nil? or answers[name] == ""
+        puts "here1"
+        puts name
+        puts answers
         return false
       end
 
       case type
       when :string then
+        puts "here2"
+        puts name
         return false unless answers[name].is_a? String
       when :integer then
+        puts "here3"
+        puts name
+        puts answers
         return false unless answers[name].is_a? Integer
       else
+        puts "here4"
+        puts name
         puts "Warning", type.class
       end
     end
-
+    puts "here5"
     return true
   end
 

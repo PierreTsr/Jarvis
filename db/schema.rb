@@ -33,9 +33,12 @@ ActiveRecord::Schema.define(version: 2021_11_01_154711) do
     t.string "email"
     t.string "password_digest"
     t.string "from_country"
-    t.string "to_city"
+    t.string "address"
     t.integer "work"
     t.integer "budget"
+    t.integer "zip_code"
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["username"], name: "index_users_on_username", unique: true

@@ -46,7 +46,7 @@
                 <div class="d-flex justify-content-center">
                 <%= form_with model: User.new do |form| %>
                     <% @questions.each do |id, question| %>
-                        <div class="text-center questions">
+                        <div class="<%= id.match?(/zip_code|latitude|longitude/) ? 'text-center questions hide-text' : 'text-center questions' %>">
                             <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>
                            <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.text_field id, placeholder: @placeholders[id], required: true %></h4>
                              
@@ -66,11 +66,7 @@
             </div>
         </header>
 
-        <!-- Projects-->
-
-        <!-- Signup-->
-
-        <!-- Contact-->
+        <%# <!-- Contact-->
         <section class="contact-section bg-black">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
@@ -111,22 +107,8 @@
                     <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
                 </div>
             </div>
-        </section>
-        <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Jarvis 2021</div></footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <%= javascript_include_tag 'application'  %>
-        <%= javascript_include_tag 'scripts' %> 
+        </section> %>
         <%= javascript_include_tag 'questions' %>
-
-        <%# <script src="js/scripts.js"></script> %>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete">
         </script>
@@ -134,7 +116,7 @@
             let autocomplete;
             function initAutoComplete() {
                 autocomplete = new google.maps.places.Autocomplete(
-                    document.getElementById('user_to_city'),
+                    document.getElementById('user_address'),
                     {
                         types: ['address'],
                         componentRestrictions: {country : ['US']},
@@ -150,6 +132,12 @@
                     })
                     let place_coordinates = [place.geometry.location.lat(), place.geometry.location.lng()] // [Latitude, Longitude]
                     let zip_code = postal_code_array[0].long_name                                          // 10025
+                    zip_code_el = document.getElementById('user_zip_code')
+                    latitude_el = document.getElementById('user_latitude')
+                    longitude_el = document.getElementById('user_longitude')
+                    zip_code_el.value = zip_code
+                    latitude_el.value = place_coordinates[0]
+                    longitude_el.value = place_coordinates[1]
                     // Need to send this to backend somehow. Can add a hidden text-field in the form to do so.
                 })
             }
