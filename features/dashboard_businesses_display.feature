@@ -6,7 +6,7 @@ Feature: choose a category and see relevant recommendation
 
 Background:
 
-  Given I am in "10025"
+  Given I am authenticated with: France, 1000 5th Ave New York, 10025, student, 2, 40.72273293527885, -74.00360957704073
   Given I am on the Category page
 
 Scenario: display all the categories

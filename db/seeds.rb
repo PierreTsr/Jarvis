@@ -142,12 +142,3 @@ businesses = [
 businesses.each do |business|
   Business.create!(business)
 end
-
-users = [
-  {name: "Pierre", from_country: "France", address: "1000 5th Ave, New York", work: "student", budget: 2, email: "test@mail.com", password: "lalala", zip_code: 10028, latitude: 40.779079, longitude: -73.962578},
-  {name: "Parth", from_country: "India", address: "2990 Broadway, New York", work: "professional", budget: 3, email: "parth@test.com", password: "lololo", zip_code: 10027, latitude: 40.809460, longitude: -73.962650}
-]
-
-users.each do |user|
-	User.create!(user)
-end
