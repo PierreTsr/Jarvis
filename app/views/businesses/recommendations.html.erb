@@ -56,22 +56,25 @@
       </div>
     </div>
   </section>
-
- 
-   <%= form_tag recommendations_path, method: :get, id: 'prices_form' do %>
-    Include:
+  
+  <div class="container-fluid">
+  <section class="py-5 text-center container">
+  <div class="row">
+  <div class="col-sm-auto">
+  <%= form_tag recommendations_path, method: :get, id: 'filters_form' do %>
+    Filter By:
+    </div>
+    <div class="col-sm-auto">
+    Prices:
     <% @all_prices.keys.each do |price| %>
       <div class="form-check  form-check-inline">
         <%= label_tag "prices[#{price}]", price, class: 'form-check-label' %>
         <%= check_box_tag "prices[#{price}]", "1",  @prices_to_show.include?(price), class: 'form-check-input' %>
       </div>
     <% end %>
-    <input type="hidden" name="category" value="<%= @category %>"/>
-    <%= submit_tag 'Refresh', id: 'prices_submit', class: 'btn btn-primary' %>
-  <% end %>  
-
-   <%= form_tag recommendations_path, method: :get, id: 'ratings_form' do %>
-    Include:
+    </div>
+    <div class="col-sm-auto">
+    Ratings:
     <% @all_ratings.keys.each do |rating| %>
       <div class="form-check  form-check-inline">
         <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
@@ -79,10 +82,13 @@
         </div>
         <% end %>
         <input type="hidden" name="category" value="<%= @category %>"/>
-    <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
+        </div>
+        <div class="col-sm-auto">     
+    <%= submit_tag 'Refresh', id: 'filters_submit', class: 'btn-primary btn-sm' %>
+    </div>
+    </div>
+  </div>
   <% end %>  
-
-
 
   <div class="album py-5 bg-light">
   <div class="container">
