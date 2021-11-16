@@ -13,7 +13,7 @@ Background: on the starting page, un-authenticated
 Scenario: create an account
 
   Given I follow "Get Started"
-  And I answer all the questions with:France,10025,student,2
+  And I answer all the questions with:France,1000 5th Ave New York,student,2
   And I check "create_account"
   And I press "Submit"
   Then I should be on the Sign Up page

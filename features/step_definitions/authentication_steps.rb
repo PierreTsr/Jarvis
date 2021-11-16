@@ -1,6 +1,5 @@
 def create_user(country, city, work, budget)
-	@test_user = User.new(name: "Jacques", email: "jacques@test.com", password: "lololo", from_country: country,
-						  to_city: city, work: work, budget: budget)
+	@test_user = User.new(name: "Pierre", from_country: "France", address: "1000 5th Ave, New York", work: "student", budget: 2, email: "test@mail.com", password: "lalala", zip_code: 10028, latitude: 40.779079, longitude: -73.962578)
 end
 
 def sign_out

@@ -18,7 +18,7 @@ Scenario: ask questions on the question page
 
 Scenario: answer questions and redirect to the Dashboard
 
-  Given I answer all the questions with: France, New-York, Student, 2
+  Given I answer all the questions with: France, 1000 5th Ave New York, Student, 2
   Given I uncheck "create_account"
   And I press "Submit"
   Then I should be on the Category page
