@@ -15,6 +15,7 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    # <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Core theme CSS (includes Bootstrap)-->
     <%= stylesheet_link_tag :recommendations %>
   </head>
@@ -32,10 +33,43 @@
       </div>
     </div>
   </section>
+  
+  <div class="container-fluid">
+  <section class="py-5 text-center container">
+  <div class="row">
+  <div class="col-sm-auto">
+  <%= form_tag recommendations_path, method: :get, id: 'filters_form' do %>
+    Filter By:
+    </div>
+    <div class="col-sm-auto">
+    Prices:
+    <% @all_prices.keys.each do |price| %>
+      <div class="form-check  form-check-inline">
+        <%= label_tag "prices[#{price}]", price, class: 'form-check-label' %>
+        <%= check_box_tag "prices[#{price}]", "1",  @prices_to_show.include?(price), class: 'form-check-input' %>
+      </div>
+    <% end %>
+    </div>
+    <div class="col-sm-auto">
+    Ratings:
+    <% @all_ratings.keys.each do |rating| %>
+      <div class="form-check  form-check-inline">
+        <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
+        <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), class: 'form-check-input' %>
+        </div>
+        <% end %>
+        <input type="hidden" name="category" value="<%= @category %>"/>
+        </div>
+        <div class="col-sm-auto">     
+    <%= submit_tag 'Refresh', id: 'filters_submit', class: 'btn-primary btn-sm' %>
+    </div>
+  </div> 
+  <% end %>  
 
   <div class="album py-5 bg-light">
-    <div class="container">
-    <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
+  <div class="container">
+  <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% @businesses.each_with_index do |tuple, index| %>
         <div class="col business">
@@ -62,5 +96,9 @@
       <% end %>
   </main>
   <%= javascript_include_tag 'recommendations' %> 
+
+  <%# <script src="js/scripts.js"></script> %>
+  <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

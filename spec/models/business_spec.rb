@@ -16,4 +16,15 @@ RSpec.describe Business, type: :model do
     expect(Business.new.get_business_from_category('groceries', 10025).any? { |business| business['name'] == 'Westside Market' }).to be_truthy
     expect(Business.new.get_business_from_category('groceries', 10025).any? { |business| business['name'] == 'Citibank' }).to be_falsy
   end
+
+  it "should filter by price" do
+    expect(Business.new.get_business_from_category('hardware', "10025").with_prices("$").any? { |business| business['name'] == 'Garcia Hardware' }).to be_truthy
+    expect(Business.new.get_business_from_category('hardware', "10025").with_prices("$").any? { |business| business['name'] == 'Nanz Custom Hardware' }).to be_falsy
+  end
+
+  it "should filter by rating" do
+    expect(Business.new.get_business_from_category('hardware', "10025").with_ratings("hardware",[3.0]).any? { |business| business['name'] == 'United Hardware' }).to be_truthy
+    expect(Business.new.get_business_from_category('hardware', "10025").with_ratings("hardware",[3.0]).any? { |business| business['name'] == 'Garcia Hardware' }).to be_falsy
+  end
+
 end
