@@ -20,10 +20,13 @@ RSpec.describe User, type: :model do
 
     before :each do
       @answers = {
-        "from_country" => "France",
-        "to_city" => "New York",
-        "work" => 0,
-        "budget" => 1
+        "from_country" => "France", 
+        "address" => "1000 5th Ave, New York", 
+        "work" => "student", 
+        "budget" => 2,
+        "zip_code" => 10028, 
+        "latitude" => 40.779079, 
+        "longitude" => -73.962578
       }
     end
 

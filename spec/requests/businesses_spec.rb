@@ -21,7 +21,7 @@ RSpec.describe "Businesses", type: :request do
 	end
 	describe "get_user_data" do
 		before :each do
-			@user_data = {name: "Pierre", from_country: "France", to_city: "10023", work: "student", budget: 2, email: "test@mail.com", password: "lalala"}
+			@user_data = {name: "Pierre", from_country: "France", address: "1000 5th Ave, New York", work: "student", budget: 2, email: "test@mail.com", password: "lalala", zip_code: 10028, latitude: 40.779079, longitude: -73.962578}
 		end
 		it "gets the current signed in user" do
 			user = User.new(@user_data)
