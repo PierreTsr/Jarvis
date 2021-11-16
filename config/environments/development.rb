@@ -80,4 +80,11 @@ Rails.application.configure do
 
   # Default URL for Devise mailer
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  
+  class ActionDispatch::Request
+    def ip
+      "216.52.207.74"
+    end
+  end
 end

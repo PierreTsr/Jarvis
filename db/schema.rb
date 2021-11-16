@@ -31,9 +31,12 @@ ActiveRecord::Schema.define(version: 2021_11_11_154409) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "from_country"
-    t.string "to_city"
+    t.string "address"
     t.integer "work"
     t.integer "budget"
+    t.integer "zip_code"
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false

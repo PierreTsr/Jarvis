@@ -37,7 +37,6 @@ class UsersController < ApplicationController
 
 	def answers_params
 		ActionController::Parameters.action_on_unpermitted_parameters = :raise
-		params.require(:user).permit(:from_country, :to_city, :work, :budget)
+		params.require(:user).permit(:from_country, :address, :work, :budget, :zip_code, :latitude, :longitude)
 	end
-
 end

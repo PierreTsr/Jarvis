@@ -10,20 +10,26 @@ class User < ApplicationRecord
 
 	cattr_reader :questions, :types, :placeholders
 	@@questions = {
-	  from_country: "Which country are you coming from?",
-	  to_city: "Which city are you traveling to?",
-	  work: "What is your work category?",
-	  budget: "What is your budget?"
-	}
+    from_country: "Which country are you coming from?",
+    address: "Which city are you traveling to?",
+    work: "What is your work category?",
+    budget: "What is your budget?",
+    zip_code: "",
+    latitude: "",
+    longitude: ""
+  }
 	@@types = {
 	  from_country: :string,
-	  to_city: :string,
+    address: :string
 	  work: :integer,
-	  budget: :integer
+	  budget: :integer,
+    zip_code: :integer,
+    latitude: :float,
+    longitude: :float
 	}
 	@@placeholders = {
 	  from_country: "India",
-	  to_city: "10025",
+	  address: "2960 Broadway",
 	  work: "Student/Professional",
 	  budget: "2000"
 	}
@@ -37,16 +43,21 @@ class User < ApplicationRecord
 		answers.each do |key, value|
 			answers[key] = value.strip if value.acts_like? :string
 		end
+    
 		answers[:work] = works[answers[:work].downcase.to_sym] if (answers[:work].acts_like? :string)
-		answers[:budget] = Integer(answers[:budget]) if (answers[:budget].acts_like? :string) && answers[:budget].match(/^\s*\d+\s*$/)
+		answers[:budget] = answers[:budget].to_i if (answers[:budget].acts_like? :string)
+    answers[:zip_code] = answers[:zip_code].to_i if (answers[:zip_code].acts_like? :string)
+    answers[:longitude] = answers[:longitude].to_f if (answers[:longitude].acts_like? :string)
+    answers[:latitude] = answers[:latitude].to_f if (answers[:latitude].acts_like? :string)
+
 		@@types.each do |name, type|
 			case type
 				when :string then
 					return nil unless (answers[name].is_a? String) && (answers[name].length > 0)
 				when :integer then
 					return nil unless answers[name].is_a? Integer
-				else
-					puts "Warning", type.class
+        when :float then
+          return nul unless answers[name].is_a? Float
 			end
 		end
 
