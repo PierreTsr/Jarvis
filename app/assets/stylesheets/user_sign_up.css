@@ -1,0 +1,14 @@
+.signup-wrapper {
+    height: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.signup-wrapper input {
+    border-style: none none solid none;
+    outline: none;
+  }
+
+  

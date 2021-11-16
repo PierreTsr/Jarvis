@@ -23,6 +23,7 @@ bundle exec rails s
 
 Instructions to test: 
 ```
+bundle exec rake db:migrate RAILS_ENV=test
 bundle exec rake db:seed RAILS_ENV=test
 bundle exec rspec 
 bundle exec cucumber 

@@ -6,11 +6,17 @@
 //
 // Scripts
 // 
-
-window.addEventListener('DOMContentLoaded', event => {
-
+window.addEventListener('turbolinks:load', event => {
+    if(window.location.pathname != '/') {
+        const navbarCollapsible = document.body.querySelector('#mainNav');
+        navbarCollapsible.classList.add('navbar-shrink')
+        return;
+    }
     // Navbar shrink function
     var navbarShrink = function () {
+        if(window.location.pathname != '/') {
+            return;
+        }
         const navbarCollapsible = document.body.querySelector('#mainNav');
         if (!navbarCollapsible) {
             return;
@@ -20,7 +26,6 @@ window.addEventListener('DOMContentLoaded', event => {
         } else {
             navbarCollapsible.classList.add('navbar-shrink')
         }
-
     };
 
     // Shrink the navbar 
