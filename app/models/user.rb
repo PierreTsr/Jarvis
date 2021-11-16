@@ -20,7 +20,7 @@ class User < ApplicationRecord
   }
 	@@types = {
 	  from_country: :string,
-    address: :string
+    address: :string,
 	  work: :integer,
 	  budget: :integer,
     zip_code: :integer,
