@@ -6,4 +6,6 @@ class Business < ApplicationRecord
   def get_all_categories()
     Business.distinct(:category).pluck(:category)
   end
+
+  
 end

@@ -74,3 +74,6 @@ gem 'jquery-rails'
 gem 'simplecov', require: false, group: :test
 
 gem 'rails-controller-testing'
+
+gem 'will_paginate', '~> 3.3.0'
+gem 'will_paginate-bootstrap'

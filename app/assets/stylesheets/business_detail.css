@@ -1,0 +1,30 @@
+.box {
+    display: inline-block;
+    vertical-align: top;
+    width: 85px;
+    height: 85px;
+    margin: 5px;
+}
+
+.review-content {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.review-content p {
+    margin: 0;
+    padding: 0;
+}
+
+#review_date {
+    color: rgba(110,112,114,1);
+    font-size: 14px;
+}
+.rating, .info {
+    margin-top: 50px;
+}
+
+#working-hours td {
+    padding: 5px;
+    margin: 5px;
+}
