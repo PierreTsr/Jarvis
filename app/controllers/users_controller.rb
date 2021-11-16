@@ -13,8 +13,7 @@ class UsersController < ApplicationController
 			redirect_to questions_users_path
 		else
 			answers = answers.to_h
-			answers[:zip_code] = Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code
-			answers = User.clean_answers answers
+			answers = User.clean_and_complete answers
 			unless answers
 				flash.alert = "Sorry, we were unable to parse your answers. Please try again."
 				redirect_to questions_users_path

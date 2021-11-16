@@ -16,34 +16,35 @@ RSpec.describe "Users", type: :request do
 	end
 
 	describe "POST /answer" do
+		before :each do
+			@answers = {
+			  "from_country" => "France",
+			  "address" => "1000 5th Ave, New York",
+			  "work" => "student",
+			  "budget" => "2",
+			  "latitude" => "40.779079",
+			  "longitude" => "-73.962578"
+			}
+			@cleaned_answers = {
+			  from_country: "France",
+			  address: "1000 5th Ave, New York",
+			  work: 0,
+			  budget: 2,
+			  zip_code: 10028,
+			  latitude: 40.779079,
+			  longitude: -73.962578
+			}
+		end
 
 		it "redirects to sign up if answers are OK and :create_account" do
-			answers = {
-				"from_country" => "France", 
-				"address" => "1000 5th Ave, New York", 
-				"work" => "student", 
-				"budget" => "2",
-				"zip_code" => "10028", 
-				"latitude" => "40.779079", 
-				"longitude" => "-73.962578"
-			  }
-			expect(User).to receive(:clean_answers).and_return(answers)
-			post answer_users_path, params: { user: answers, create_account: "true" }
+			expect(User).to receive(:clean_and_complete).and_return(@cleaned_answers)
+			post answer_users_path, params: { user: @answers, create_account: "true" }
 			expect(response).to redirect_to(new_user_registration_path)
 		end
 
 		it "redirects categories if answers are OK and not :create_account" do
-			answers = {
-				"from_country" => "France", 
-				"address" => "1000 5th Ave, New York", 
-				"work" => "student", 
-				"budget" => "2",
-				"zip_code" => "10028", 
-				"latitude" => "40.779079", 
-				"longitude" => "-73.962578"
-			  }
-			expect(User).to receive(:clean_answers).and_return(answers)
-			post answer_users_path, params: { user: answers }
+			expect(User).to receive(:clean_and_complete).and_return(@cleaned_answers)
+			post answer_users_path, params: { user: @answers }
 			expect(response).to redirect_to(categories_path)
 		end
 
@@ -55,10 +56,9 @@ RSpec.describe "Users", type: :request do
 					"address" => "1000 5th Ave, New York", 
 					"work" => "student", 
 					"budget" => "2",
-					"latitude" => "40.779079", 
 					"longitude" => "-73.962578"
 				  }
-				expect(User).to receive(:clean_answers).and_return(nil)
+				expect(User).to receive(:clean_and_complete).and_return(nil)
 				post answer_users_path, params: { user: answers }
 				expect(response).to redirect_to(questions_users_path)
 			end

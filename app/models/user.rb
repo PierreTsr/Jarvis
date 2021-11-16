@@ -35,7 +35,7 @@ class User < ApplicationRecord
 
 	def self.clean_answers(answers)
 		answers = answers.symbolize_keys
-		unless answers.size == @@questions.size and (answers.keys - @@types.keys).empty?
+		unless (answers.keys - @@types.keys).empty? and (@@questions.keys - answers.keys).empty?
 			return nil
 		end
 		
@@ -43,24 +43,39 @@ class User < ApplicationRecord
 			answers[key] = value.strip if value.acts_like? :string
 		end
 		
-		answers[:work] = works[answers[:work].downcase.to_sym] rescue ""
+		answers[:work] = works[answers[:work].downcase.to_sym] if answers[:work].acts_like? :string
 		answers[:budget] = Integer(answers[:budget]) rescue ""
-		answers[:zip_code] = Integer(answers[:zip_code]) rescue ""
 		answers[:longitude] = Float(answers[:longitude]) rescue ""
 		answers[:latitude] = Float(answers[:latitude]) rescue ""
 
-		@@types.each do |name, type|
-			case type
+		answers.each do |name, value|
+			case @@types[name]
 				when :string then
-					return nil unless (answers[name].is_a? String) && (answers[name].length > 0)
+					return nil unless (value.is_a? String) && (value.length > 0)
 				when :integer then
-					return nil unless answers[name].is_a? Integer 
+					return nil unless value.is_a? Integer
 				when :float then
-					return nil unless answers[name].is_a? Float
+					return nil unless value.is_a? Float
 			end
 		end
 
 		return answers
+	end
+
+	def self.infer_zip_code(answers)
+		begin
+			answers[:zip_code] = Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code
+		rescue
+			return nil
+		else
+			return answers
+		end
+	end
+
+	def self.clean_and_complete(answers)
+		answers = self.clean_answers answers
+		answers = self.infer_zip_code answers unless answers.nil?
+		answers
 	end
 
 	def self.create_guest(answers)
