@@ -64,7 +64,7 @@ class User < ApplicationRecord
 
 	def self.infer_zip_code(answers)
 		begin
-			answers[:zip_code] = Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code
+			answers[:zip_code] = Integer(Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code)
 		rescue
 			return nil
 		else

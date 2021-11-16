@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
 	def answer
 		begin
-			# answers = answers_params
+			answers = answers_params
 		rescue ActionController::UnpermittedParameters
 			flash.alert = "Sorry, un-permitted parameters were provided. Please try again."
 			redirect_to questions_users_path
