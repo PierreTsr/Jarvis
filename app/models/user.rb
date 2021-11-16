@@ -10,7 +10,6 @@ class User < ApplicationRecord
       address: "Which city are you traveling to?",
       work: "What is your work category?",
       budget: "What is your budget?",
-      zip_code: "",
       latitude: "",
       longitude: ""
     }
@@ -33,29 +32,18 @@ class User < ApplicationRecord
       next if unasked_fields.include? name
 
       if answers[name].nil? or answers[name] == ""
-        puts "here1"
-        puts name
-        puts answers
         return false
       end
 
       case type
       when :string then
-        puts "here2"
-        puts name
         return false unless answers[name].is_a? String
       when :integer then
-        puts "here3"
-        puts name
-        puts answers
         return false unless answers[name].is_a? Integer
       else
-        puts "here4"
-        puts name
         puts "Warning", type.class
       end
     end
-    puts "here5"
     return true
   end
 

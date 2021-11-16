@@ -74,3 +74,5 @@ gem 'jquery-rails'
 gem 'simplecov', require: false, group: :test
 
 gem 'rails-controller-testing'
+
+gem 'geocoder'

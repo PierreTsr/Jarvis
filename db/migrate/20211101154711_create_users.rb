@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :address
       t.integer :work
       t.integer :budget
-      t.integer :zip_code
+      t.string :city
       t.float :latitude
       t.float :longitude
       

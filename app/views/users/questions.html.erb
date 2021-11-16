@@ -120,25 +120,16 @@
                     {
                         types: ['address'],
                         componentRestrictions: {country : ['US']},
-                        fields: ["place_id", "geometry", "name", "address_components"]
+                        fields: ["place_id", "geometry", "name"]
                     }
                 )
                 autocomplete.addListener('place_changed', (e) => {
                     let place = autocomplete.getPlace()
-                    let address_components = place.address_components
-                    let postal_code_array = address_components.filter(comp => {
-                        // console.log(comp.types, comp.types.indexOf("postal_code") > -1)
-                        return comp.types.indexOf("postal_code") > -1
-                    })
                     let place_coordinates = [place.geometry.location.lat(), place.geometry.location.lng()] // [Latitude, Longitude]
-                    let zip_code = postal_code_array[0].long_name                                          // 10025
-                    zip_code_el = document.getElementById('user_zip_code')
                     latitude_el = document.getElementById('user_latitude')
                     longitude_el = document.getElementById('user_longitude')
-                    zip_code_el.value = zip_code
                     latitude_el.value = place_coordinates[0]
                     longitude_el.value = place_coordinates[1]
-                    // Need to send this to backend somehow. Can add a hidden text-field in the form to do so.
                 })
             }
         </script>
