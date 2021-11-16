@@ -15,34 +15,45 @@ Scenario: display all the categories
 
 Scenario: display positive results for "groceries"
 
-  Given I follow "See Grocery Recommendations"
+  Given I follow "groceries"
   Then I should see "Westside Market"
 
 Scenario: do not display negative results for "groceries"
 
-  Given I follow "See Grocery Recommendations"
+  Given I follow "groceries"
   Then I should not see "University Hardware store"
 
 Scenario: filter to find cheapest results positive
-  Given I follow "See Grocery Recommendations"
+  Given I follow "groceries"
   When I check "$"
   And I press "Refresh"
   Then I should see "Hamilton Deli"
 
-# Scenario: filter to find cheapest results negative 
-#   Given I follow "See Grocery Recommendations"
-#   When I check "$"
-#   And I press "Refresh"
-#   Then I should not see "Morton Williams"
+Scenario: filter to find cheapest results negative 
+  Given I follow "groceries"
+  When I check "$$"
+  And I uncheck "$"
+  And I uncheck "$$$"
+  And I uncheck "$$$$"
+  And I press "Refresh"
+  Then I should not see "New Chelsea Market"
 
 Scenario: filter to find highest rating positive
-  Given I follow "See Grocery Recommendations"
-  When I check "5.0"
+  Given I follow "groceries"
+  When I check "3.0"
+  And I uncheck "1.0"
+  And I uncheck "2.0"
+  And I uncheck "5.0"
+  And I uncheck "4.0"
   And I press "Refresh"
-  Then I should see "Asia Market"
+  Then I should see "H Mart"
 
-# Scenario: filter to find highest rating negative
-#   Given I follow "See Grocery Recommendations"
-#   When I check "5.0"
-#   And I press "Refresh"
-#   Then I should not see "Morton Williams"
+Scenario: filter to find highest rating negative
+  Given I follow "groceries"
+  When I check "4.0"
+  And I uncheck "1.0"
+  And I uncheck "2.0"
+  And I uncheck "3.0"
+  And I uncheck "5.0"
+  And I press "Refresh"
+  Then I should not see "CTown Supermarkets"
