@@ -1,3 +1,4 @@
+
 class UsersController < ApplicationController
 
 	def show
@@ -6,6 +7,7 @@ class UsersController < ApplicationController
 
 	def answer
 		begin
+			answers[:zip_code] = Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code
 			answers = answers_params
 		rescue ActionController::UnpermittedParameters
 			flash.alert = "Sorry, un-permitted parameters were provided. Please try again."

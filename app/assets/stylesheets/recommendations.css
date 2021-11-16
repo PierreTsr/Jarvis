@@ -13,3 +13,20 @@
     font-size: 3.5rem;
   }
 }
+
+.business {
+  position: relative;
+}
+
+.business .banner {
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+  color: #fff;
+  background-color: #f00;
+  z-index: 1;
+  padding: 0.2rem 0.4rem;
+}
+.business .hide {
+  display: none;
+}

@@ -14,7 +14,6 @@ class User < ApplicationRecord
 		address: "Which city are you traveling to?",
 		work: "What is your work category?",
 		budget: "What is your budget?",
-		zip_code: "",
 		latitude: "",
 		longitude: ""
 	}
