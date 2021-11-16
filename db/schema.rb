@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_11_11_154409) do
     t.string "name"
     t.string "category"
     t.string "address"
-    t.string "zip_code"
+    t.integer "zip_code"
     t.string "price"
     t.string "phone"
     t.string "display_phone"

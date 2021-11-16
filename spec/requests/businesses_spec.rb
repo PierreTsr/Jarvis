@@ -10,7 +10,9 @@ RSpec.describe "Businesses", type: :request do
 	end
 	describe "GET /recommendations" do
 		it "returns http success on having category in params" do
-			get "/recommendations", params: { :category => 'grocery' }
+			@user_data = {name: "Pierre", from_country: "France", address: "1000 5th Ave, New York", work: "student", budget: 2, email: "test@mail.com", password: "lalala", zip_code: 10028, latitude: 40.779079, longitude: -73.962578}
+			sign_in User.new(@user_data)
+			get "/recommendations", params: { :category => 'groceries' }
 			expect(response).to have_http_status(:success)
 			expect(response).to render_template :recommendations
 		end

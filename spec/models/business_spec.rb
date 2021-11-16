@@ -13,7 +13,7 @@ RSpec.describe Business, type: :model do
   
   it "should return businesses from the category" do
     # allow(Business.new).to receive(:get_business_from_category).with('grocery').and_return([{:name => 'Westside Market'}])
-    expect(Business.new.get_business_from_category('groceries', "10025").any? { |business| business['name'] == 'Westside Market' }).to be_truthy
-    expect(Business.new.get_business_from_category('groceries', "10025").any? { |business| business['name'] == 'Citibank' }).to be_falsy
+    expect(Business.new.get_business_from_category('groceries', 10025).any? { |business| business['name'] == 'Westside Market' }).to be_truthy
+    expect(Business.new.get_business_from_category('groceries', 10025).any? { |business| business['name'] == 'Citibank' }).to be_falsy
   end
 end
