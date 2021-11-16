@@ -18,13 +18,13 @@ Scenario: ask questions on the question page
 
 Scenario: answer questions and redirect to the Dashboard
 
-  Given I answer all the questions with: France, 1000 5th Ave New York, Student, 2
+  Given I answer all the questions with: France, 1000 5th Ave New York, Student, 2, 10025, 43.35135, -79.135361
   Given I uncheck "create_account"
   And I press "Submit"
   Then I should be on the Category page
 
 Scenario: missing answer
 
-  Given I answer all the questions with: France, , Student, 2
+  Given I answer all the questions with: France, , Student, 2, ,, ,
   And I press "Submit"
   Then I should be on the Questions page
