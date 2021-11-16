@@ -7,13 +7,13 @@ class UsersController < ApplicationController
 
 	def answer
 		begin
-			answers[:zip_code] = Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code
-			answers = answers_params
+			# answers = answers_params
 		rescue ActionController::UnpermittedParameters
 			flash.alert = "Sorry, un-permitted parameters were provided. Please try again."
 			redirect_to questions_users_path
 		else
 			answers = answers.to_h
+			answers[:zip_code] = Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code
 			answers = User.clean_answers answers
 			unless answers
 				flash.alert = "Sorry, we were unable to parse your answers. Please try again."

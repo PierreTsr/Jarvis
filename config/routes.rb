@@ -10,5 +10,4 @@ Rails.application.routes.draw do
 			post 'answer', as: 'answer'
 		end
 	end
-
 end
