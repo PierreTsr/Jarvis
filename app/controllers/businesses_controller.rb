@@ -39,16 +39,10 @@ class BusinessesController < ApplicationController
           @businesses = Business.new.get_business_from_category(@category, zip_code)
         end
       end
-
-
-      
-
     #  redirect_to recommendations_path(:category => @category, :ratings => @all_ratings, :prices => @all_prices)
-
-  else
-    redirect_to categories_path
-  end
-
+    else
+      redirect_to categories_path
+    end
   end
 
   private
