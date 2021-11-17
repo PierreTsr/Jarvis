@@ -1,41 +1,38 @@
 <%= stylesheet_link_tag 'user_sign_up', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 <main>
 <div class="container signup-wrapper">
 
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-	<%= render "users/shared/error_messages", resource: resource %>
+	<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'sign-up-form'}) do |f| %>
+		<%= render "users/shared/error_messages", resource: resource %>
 
-	<div class="field">
-		<%= f.label :email %><br/>
-		<%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+		<div class="field">
+			<%# <%= f.label :email %> 
+			<%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "EMAIL"%>
+		</div>
+
+		<div class="field">
+		 <%# <h6 class="mx-auto my-0 text-uppercase"><%= f.label :name %>
+			<%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "NAME" %>
+		</div>
+
+		<div class="field">
+			<%= f.password_field :password, autocomplete: "new-password", placeholder: "NEW PASSWORD"%>
+		</div>
+
+		<div class="field">
+			<%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "PASSWORD CONFIRMATION"%>
+		</div>
+
+		<div class="actions">
+			<%= f.submit "Sign up", :class => 'btn btn-primary'%>
+		</div>
+	<% end %>
+
+	<%= render "users/shared/links" %>
 	</div>
 
-	<div class="field">
-		<%= f.label :name %><br/>
-		<%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-	</div>
 
-	<div class="field">
-		<%= f.label :password %>
-		<% if @minimum_password_length %>
-			<em>(<%= @minimum_password_length %> characters minimum)</em>
-		<% end %><br/>
-		<%= f.password_field :password, autocomplete: "new-password" %>
-	</div>
-
-	<div class="field">
-		<%= f.label :password_confirmation %><br/>
-		<%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-	</div>
-
-	<div class="actions">
-		<%= f.submit "Sign up" %>
-	</div>
-<% end %>
-
-</div>
-
-<%= render "users/shared/links" %>

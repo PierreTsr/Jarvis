@@ -1,5 +1,5 @@
 .signup-wrapper {
-    height: 100vw;
+    height: 50vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,4 +11,14 @@
     outline: none;
   }
 
-  
+form {
+    margin-top: 30px;
+}
+
+.sign-up-form input {
+    margin-top: 30px;
+    width: 300px;   
+}
+#remember_checkbox {
+    width: 30px;
+}

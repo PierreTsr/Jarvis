@@ -23,7 +23,7 @@
                 <%= form_with model: User.new, url: {action: :answer} do |form| %>
                     <% @questions.each do |id, question| %>
                         <div class="<%= id.match?(/zip_code|latitude|longitude/) ? 'text-center questions hide-text' : 'text-center questions' %>">
-                            <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>
+                          <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>
                            <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.text_field id, placeholder: @placeholders[id], required: true %></h4>
                              
                              <!--<% if id == 'budget' %>
