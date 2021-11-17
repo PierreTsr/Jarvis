@@ -16,8 +16,8 @@ def sign_in(values)
 	@test_user.save!
 	sign_out
 	click_link("Sign In")
-	fill_in "Email", with: @test_user.email
-	fill_in "Password", with: @test_user.password
+	fill_in "user_email", with: @test_user.email
+	fill_in "user_password", with: @test_user.password
 	click_button("Log in")
 end
 
