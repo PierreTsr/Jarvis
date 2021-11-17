@@ -17,10 +17,11 @@
 
     <body id="page-top">
         <!-- Masthead-->
-        <header class="masthead">
+        <header class="masthead questions-masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                 <%= form_with model: User.new, url: {action: :answer} do |form| %>
+                    <h3 class="h3">Let us get to know you:</h3>
                     <% @questions.each do |id, question| %>
                         <div class="<%= id.match?(/zip_code|latitude|longitude/) ? 'text-center questions hide-text' : 'text-center questions' %>">
                           <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>

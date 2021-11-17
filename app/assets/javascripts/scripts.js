@@ -7,6 +7,13 @@
 // Scripts
 // 
 window.addEventListener('turbolinks:load', event => {
+    const pageWrapper = $('.page-content');
+    if(window.location.pathname == '/' || window.location.pathname == '/users/sign_in' || window.location.pathname == '/users/sign_up'|| window.location.pathname == '/users/questions') {
+        console.log(pageWrapper)
+        pageWrapper.removeClass('page-content')
+    } else {
+        pageWrapper.addClass('page-content')
+    }
     if(window.location.pathname != '/') {
         const navbarCollapsible = document.body.querySelector('#mainNav');
         navbarCollapsible.classList.add('navbar-shrink')

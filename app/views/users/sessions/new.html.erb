@@ -22,11 +22,15 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in", :class => 'btn btn-primary' %>
+  <div class="row actions">
+    <div class="col-6">
+      <%= f.submit "Log in", :class => 'btn btn-primary' %>
+    </div>
+    <div class="col-6">
+      <%= render "users/shared/links"%>
+    </div>
   </div>
 <% end %>
 
-<%= render "users/shared/links"%>
 
 </div>

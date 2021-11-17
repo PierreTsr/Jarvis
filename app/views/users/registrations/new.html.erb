@@ -27,12 +27,16 @@
 			<%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "PASSWORD CONFIRMATION"%>
 		</div>
 
-		<div class="actions">
-			<%= f.submit "Sign up", :class => 'btn btn-primary'%>
+		<div class="row actions">
+			<div class="col-6">
+				<%= f.submit "Sign up", :class => 'btn btn-primary'%>
+			</div>
+			<div class="col-6">
+				<%= render "users/shared/links" %>
+			</div>
 		</div>
 	<% end %>
 
-	<%= render "users/shared/links" %>
 	</div>
 
 
