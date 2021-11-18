@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag 'user_sign_up', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<main>
+<div class="container signup-wrapper">
+
+<h2>Forgot your password?</h2>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Reset password", :class => 'btn btn-primary'%>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
+
+</div>

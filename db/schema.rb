@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_154711) do
+ActiveRecord::Schema.define(version: 2021_11_16_014242) do
 
   create_table "businesses", force: :cascade do |t|
     t.string "name"
     t.string "category"
     t.string "address"
-    t.string "zip_code"
+    t.integer "zip_code"
     t.string "price"
     t.string "phone"
     t.string "display_phone"
@@ -26,12 +26,24 @@ ActiveRecord::Schema.define(version: 2021_11_01_154711) do
     t.float "latitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
+    t.text "working_hours"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "business_id", null: false
+    t.integer "user_id", null: false
+    t.integer "rating"
+    t.string "title"
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["business_id"], name: "index_reviews_on_business_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
-    t.string "password_digest"
+    t.string "name"
     t.string "from_country"
     t.string "address"
     t.integer "work"
@@ -41,7 +53,15 @@ ActiveRecord::Schema.define(version: 2021_11_01_154711) do
     t.float "longitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["username"], name: "index_users_on_username", unique: true
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reviews", "businesses"
+  add_foreign_key "reviews", "users"
 end

@@ -1,16 +1,11 @@
-Given /I am (not )?authenticated/ do |bool|
-  if bool
-    expect(session[:user]).to be_nil
-  else
-    expect(session[:user]).not_to be_nil
-  end
-end
 
-Given /I answer all the questions with:(.*),(.*),(.*),(.*)/ do |from_country, to_city, work, budget|
+Given /I answer all the questions with:(.*),(.*),(.*),(.*),(.*),(.*)/ do |from_country, address, work, budget, latitude, longitude|
   steps %Q{
     Given I fill in "country" with "#{from_country}"
-    And I fill in "city" with "#{to_city}"
+    And I fill in "city" with "#{address}"
     And I fill in "work" with "#{work}"
     And I fill in "budget" with "#{budget}"
+    And I fill in "user_latitude" with "#{latitude}"
+    And I fill in "user_longitude" with "#{longitude}"
   }
 end

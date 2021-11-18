@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   describe ":get_questions" do
 
     before :each do
-      @questions = User.get_questions
+      @questions = User.questions
     end
 
     it "is a Hash(Id,String)" do
@@ -14,45 +14,62 @@ RSpec.describe User, type: :model do
         expect(question).to be_a String
       end
     end
-
-    it "matches the model attributes" do
-      const_fields = [:id, :username, :email, :password_digest, :created_at, :updated_at]
-      User.column_names.each do |id|
-        expect(@questions.keys).to include id.to_sym unless const_fields.include? id.to_sym
-      end
-    end
   end
 
-  describe ":check_answers?" do
+  describe ":clean_answers" do
 
     before :each do
       @answers = {
-        from_country: "France",
-        to_city: "New York",
-        work: 0,
-        budget: 1
+        "from_country" => "France", 
+        "address" => "1000 5th Ave, New York", 
+        "work" => "student", 
+        "budget" => 2,
+        "zip_code" => 10028, 
+        "latitude" => 40.779079, 
+        "longitude" => -73.962578
       }
     end
 
     it "accepts correct answers" do
-      expect(User.check_answers? @answers).to be_truthy
+      expect(User.clean_answers @answers).to be_truthy
     end
 
-    User.get_questions.each_key do |key|
+    User.questions.each_key do |key|
       it "rejects missing answer: #{key}" do
-        @answers.delete key
-        expect(User.check_answers? @answers).to be_falsey
+        @answers.delete key.to_s
+        expect(User.clean_answers @answers).to be_falsey
       end
     end
 
-    User.get_questions.each_key do |key|
+    User.questions.each_key do |key|
       it "rejects wrong type: #{key}" do
-        @answers[key] = 0
-        int = User.check_answers? @answers
+        @answers[key.to_s] = 0
+        int = (User.clean_answers @answers).nil?
         @answers[key] = "abc"
-        str = User.check_answers? @answers
-        expect(str && int).to be_falsey
+        str = (User.clean_answers @answers).nil?
+        expect(str || int).to be_truthy
       end
+    end
+
+    it "converts :work == \"student\" to 0" do
+      @answers["work"] = "Student"
+      @answers = User.clean_answers @answers
+      expect(@answers).to be_truthy
+      expect(@answers[:work]).to be 0
+    end
+
+    it "converts :work == \"professional\" to 1" do
+      @answers["work"] = "Professional"
+      @answers = User.clean_answers @answers
+      expect(@answers).to be_truthy
+      expect(@answers[:work]).to be 1
+    end
+
+    it "converts :budget to int" do
+      @answers["budget"] = "100"
+      @answers = User.clean_answers @answers
+      expect(@answers).to be_truthy
+      expect(@answers[:budget]).to be 100
     end
   end
 end

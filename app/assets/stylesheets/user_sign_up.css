@@ -1,0 +1,33 @@
+.signup-wrapper {
+    height: calc(100vh - 9rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.signup-wrapper input {
+    border-style: none none solid none;
+    outline: none;
+  }
+
+form {
+    margin-top: 30px;
+}
+
+.sign-up-form input {
+    margin-top: 30px;
+    width: 300px;   
+}
+
+.sign-up-form input[type='submit'], .sign-up-form a {
+    width: fit-content;
+    margin-top: 0
+}
+
+.sign-up-form .actions {
+    margin-top: 2rem;
+}
+#remember_checkbox {
+    width: 30px;
+}

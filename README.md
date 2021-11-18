@@ -23,6 +23,7 @@ bundle exec rails s
 
 Instructions to test: 
 ```
+bundle exec rake db:migrate RAILS_ENV=test
 bundle exec rake db:seed RAILS_ENV=test
 bundle exec rspec 
 bundle exec cucumber 
@@ -50,5 +51,18 @@ Page 3: Categories page with different businesses
 
 Page 4: Businesses within given categories and for the given zipcode on Page2. If there are no businesses for the index, the page will be blank. 
 
+## Info for project iteration2
+
+Filtering added for businesses (Page 4)
+
+Page 2 is enhanced by adding Google API that lets you add your address 
+
+Page 5. Sign in page with working functionality 
+
+Page 6. Sign up page with working functionality. The account is created when user answers questions for Page2 and redirected to sig up page. 
+
+Page 7. Business detail page with reviews. 
+
+Additional tests to cover the new added featues. 
 
 

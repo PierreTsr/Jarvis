@@ -1,40 +1,43 @@
+
 class UsersController < ApplicationController
 
-    def create
-      answers = answers_params
-      answers.each do |key, value| 
-        answers[key] = value.strip
-      end
-      work_type = answers[:work].downcase unless answers[:work].nil?
-      # answers[:zip_code] = answers[:zip_code].to_i
-      answers[:longitude] = answers[:longitude].to_f
-      answers[:latitude] = answers[:latitude].to_f
-      answers[:work] = work_type == 'student' ? 0 : 1 unless work_type.nil?
-      answers[:budget] = Integer(answers[:budget]) if (answers[:budget].acts_like? :string) && answers[:budget].match(/^\s*\d+\s*$/)
-      answers[:zip_code] = Geocoder.search([answers[:latitude].to_s, answers[:longitude].to_s]).first.postal_code
-      answers[:zip_code] = answers[:zip_code].to_i
-      unless User.check_answers?(answers)
-        flash.alert = "Sorry, we are unable to parse your answers. Please try again."
-        redirect_to questions_path
-      else
-        user = User.create_from_answers(answers)
-        # Need to update these by checking with Pierre
-        session[:zip_code] = answers[:zip_code]
-        session[:latitude] = answers[:latitude]
-        session[:longitude] = answers[:longitude]
-        redirect_to categories_path
-      end
-    end
+	def show
+		redirect_to root_path
+	end
 
-    def questions
-      @questions = User.get_questions
-      @placeholders = User.get_placeholder_questions
-      render :questions
-    end 
-    
-    private
+	def answer
+		begin
+			answers = answers_params
+		rescue ActionController::UnpermittedParameters
+			flash.alert = "Sorry, un-permitted parameters were provided. Please try again."
+			redirect_to questions_users_path
+		else
+			answers = answers.to_h
+			answers = User.clean_and_complete answers
+			unless answers
+				flash.alert = "Sorry, we were unable to parse your answers. Please try again."
+				redirect_to questions_users_path
+			else
+				session[:user] = answers
+				if params[:create_account]
+					redirect_to new_user_registration_path
+				else
+					redirect_to categories_path
+				end
+			end
+		end
+	end
 
-    def answers_params
-      params.require(:user).permit(:from_country, :address, :work, :budget, :zip_code, :latitude, :longitude)
-    end
+	def questions
+		@questions = User.questions
+		@placeholders = User.placeholders
+		render :questions
+	end
+
+	private
+
+	def answers_params
+		ActionController::Parameters.action_on_unpermitted_parameters = :raise
+		params.require(:user).permit(:from_country, :address, :work, :budget, :zip_code, :latitude, :longitude)
+	end
 end

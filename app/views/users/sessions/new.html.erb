@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag 'user_sign_up', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<main>
+<div class="container signup-wrapper">
+
+<h2>Log in</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'sign-up-form'}) do |f| %>
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "EMAIL" %>
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password, autocomplete: "current-password", placeholder: "PASSWORD" %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <%= f.check_box :remember_me, id: "remember_checkbox"%>
+      <%= f.label :remember_me %>
+    </div>
+  <% end %>
+
+  <div class="row actions">
+    <div class="col-6">
+      <%= f.submit "Log in", :class => 'btn btn-primary' %>
+    </div>
+    <div class="col-6">
+      <%= render "users/shared/links"%>
+    </div>
+  </div>
+<% end %>
+
+
+</div>

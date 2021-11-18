@@ -19,34 +19,8 @@
     <%= stylesheet_link_tag :recommendations %>
   </head>
   <body>
-   <header>
-  <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/">Home</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#about">About us</a></li>
-                        <%= content_tag :li ,class: "nav-item" do%>
-                            <%=link_to  recommendations_path, class:"nav-link" do%>
-                            <i class="batch-icon batch-icon-search"></i>
-                            Recommendations
-                            <%end%>
-                        <%end%>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
- </header>
-
 <main>
-
-  <section class="py-5 text-center container">
+  <section class="text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Recommendations</h1>
@@ -55,10 +29,43 @@
       </div>
     </div>
   </section>
+  
+  <div class="container-fluid">
+  <section class="py-5 text-center container">
+  <div class="row">
+  <div class="col-sm-auto">
+  <%= form_tag recommendations_path, method: :get, id: 'filters_form' do %>
+    Filter By:
+    </div>
+    <div class="col-sm-auto">
+    Prices:
+    <% @all_prices.keys.each do |price| %>
+      <div class="form-check  form-check-inline">
+        <%= label_tag "prices[#{price}]", price, class: 'form-check-label' %>
+        <%= check_box_tag "prices[#{price}]", "1",  @prices_to_show.include?(price), class: 'form-check-input' %>
+      </div>
+    <% end %>
+    </div>
+    <div class="col-sm-auto">
+    Ratings:
+    <% @all_ratings.keys.each do |rating| %>
+      <div class="form-check  form-check-inline">
+        <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
+        <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), class: 'form-check-input' %>
+        </div>
+        <% end %>
+        <input type="hidden" name="category" value="<%= @category %>"/>
+        </div>
+        <div class="col-sm-auto">     
+    <%= submit_tag 'Refresh', id: 'filters_submit', class: 'btn-primary btn-sm' %>
+    </div>
+  </div> 
+  <% end %>  
 
   <div class="album py-5 bg-light">
-    <div class="container">
-    <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
+  <div class="container">
+  <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% @businesses.each_with_index do |tuple, index| %>
         <div class="col business">
@@ -67,12 +74,13 @@
             <%= image_tag((tuple[0]['img_url'] == '' ? tuple[0].category + '.jpg' : tuple[0].img_url), class: "card-img-top", style: 'object-fit:cover; object-position: center;width:100%; height:225px;') %>
             <div class="card-body">
                <div class="d-flex justify-content-between align-items-center">
-                 <p> <%= tuple[0].name %> </p>
+                 <p>  <%= link_to tuple[0].name , business_detail_path(:id => tuple[0].id)%></p>
                  <small class="text-muted rating" style="margin-bottom: 1rem;"> <%= tuple[0].rating %>/5.0 </small>
                </div>
               <div class="d-flex justify-content-between align-items-center">
                 <p style="text-align: left;" class="text-muted"><%= tuple[0].display_phone %></p>
                 <small class="text-muted"> <%= tuple[0].price %></small>
+                <small class="text-muted"> <%= tuple[1] %></small>
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <a style="outline:none;color:#000;text-decoration:none;border:1px solid #000; padding: 0rem 0.5rem;" href="tel:" + <%= tuple[0].phone %>>Call</a>
@@ -84,5 +92,9 @@
       <% end %>
   </main>
   <%= javascript_include_tag 'recommendations' %> 
+
+  <%# <script src="js/scripts.js"></script> %>
+  <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

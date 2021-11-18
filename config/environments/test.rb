@@ -64,4 +64,7 @@ Rails.application.configure do
 
   # Access to rack session
   config.middleware.use RackSessionAccess::Middleware
+
+  # Default URL for Devise mailer
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

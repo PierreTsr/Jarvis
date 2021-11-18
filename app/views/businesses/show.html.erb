@@ -1,0 +1,118 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<%= stylesheet_link_tag :styles %>
+<%= stylesheet_link_tag :business_detail %>
+
+
+    <div class="container">
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+            
+            <div class="col-lg-6">
+                <%= image_tag((@business['img_url'] == '' ? @business.category + '.jpg' : @business.img_url), class: "card-img-top", style: 'object-fit:cover; object-position: center;width:100%; height:225px;') %>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white"><%= @business.name %></h4>
+                            <p class="mb-0 text-white-50"><%= @business.category %></p>
+                            <p class="mb-0 text-white-50"><%= @business.address %></p>
+                            <p class="mb-0 text-white-50">Rating: <%= @rating %></p>
+                            <hr class="d-none d-lg-block mb-0 ms-0" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row info">
+                <div class="col-lg-8">
+                    <h4>About the business</h4>
+                    <p>Columbus Hardware, your neighborhood hardware store for over 80 years! We supply residential
+                        and commercial with.. Locksmith Plumbing Electrical Paint House essentials Gardening Building
+                        materials Tools & Hardware "Everyone Needs a Screw."</p>
+
+                     <h4>Covid-19 updates</h4>
+                        <p>"We will remain oped during COVID-19. Our temporary Hours will be from 8am to 
+                        5pm on weekdays and from 9am to 4pm on saturday. Please try to keep atleast 6 ft in distance when coming in to the store. Contact store for day by day face mask availability."</p>
+                </div>
+                <div id="working-hours" class="col-lg-4">
+                    <h4>Working hours</h4>
+                    <table>
+                        <tr>
+                            <td>Mon </td>
+                            <td>8:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Tue</td>
+                            <td>8:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Wed</td>
+                            <td>8:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Thu</td>
+                            <td>8:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Fri</td>
+                            <td>8:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Sat</td>
+                            <td>8:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Sun</td>
+                            <td>8:00 AM - 6:00 PM</td>
+                        </tr>
+                        </table>
+                </div>
+            </div>
+
+            <div class="row rating">
+
+            <h4>Reviews</h4>
+                <div class="col-lg-12">
+
+                        <% if @reviews.any? %>
+                        <% @reviews.each do |review| %>
+
+                            <div class="box">  
+                                <%= image_tag "user_profile_placeholder.png", class: "img-fluid"%>
+                            </div>
+                            
+                            <div class="review-content">
+                            <p>
+                                <% if review.user.email.blank? %>
+                                    Anonymous</p>
+                                <% else %> 
+                                    <b><%= review.user.email %></b>
+                                <% end %>
+                                <p id="review_date"> <%= review.created_at.strftime("%m/%d/%y") %></p>
+                                
+                                <p> <%= review.title %></p>
+                                
+                            </div>
+
+                            <div>   
+                                <p> Rating: <% (1..review.rating).each do |n| %> 
+                                            <span class="fa fa-star checked"></span>
+                                            <% end %>
+                            </div>
+
+                            <div>   
+                                <p> <%= review.comment %></p>
+                            </div>
+
+                    <% end %>
+                    <% else %>
+                        <p>No reviews at the moment.</p>
+                    <% end %>
+                      <%= will_paginate @reviews, renderer: BootstrapPagination::Rails  %>
+                </div>
+
+            </div>
+    </div>
+    
