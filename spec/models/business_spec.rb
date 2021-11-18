@@ -27,4 +27,11 @@ RSpec.describe Business, type: :model do
     expect(Business.new.get_business_from_category('hardware', 10025).with_ratings("hardware",[3.0]).any? { |business| business['name'] == 'Garcia Hardware' }).to be_falsy
   end
 
+  it "should filter by both ratings and prices" do
+    expect(Business.new.get_business_from_category('groceries', 10025).with_ratings_prices("groceries", ["2.0", "4.0"], ["$"]).any? { |business| business['name'] == 'Hong Kong Supermarket' }).to be_truthy
+    expect(Business.new.get_business_from_category('groceries', 10025).with_ratings_prices("groceries", ["2.0"], ["$"]).any? { |business| business['name'] == 'Hamilton Deli' }).to be_falsy
+  end
+
+  
+
 end
