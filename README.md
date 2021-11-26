@@ -30,7 +30,7 @@ bundle exec cucumber
 ```
 
 Heroku link: 
-https://fast-lake-44748.herokuapp.com/
+https://aqueous-lake-64776.herokuapp.com/
 
 
 Github link: 
@@ -51,5 +51,18 @@ Page 3: Categories page with different businesses
 
 Page 4: Businesses within given categories and for the given zipcode on Page2. If there are no businesses for the index, the page will be blank. 
 
+## Info for project iteration2
+
+Filtering added for businesses (Page 4)
+
+Page 2 is enhanced by adding Google API that lets you add your address.
+
+Page 5. Sign in page with main functionalities .
+
+Page 6. Sign up page with main functionalities. The account is created when the user answers the questions for Page2 and then goes to the sign up page. Another option is to skip the account creation and visit the website as a guest. 
+
+Page 7. Business detail page with reviews. 
+
+Additional tests to cover the new added featues. 
 
 
