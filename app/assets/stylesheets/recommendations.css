@@ -30,3 +30,6 @@
 .business .hide {
   display: none;
 }
+.j-left {
+  justify-content: left;
+}

@@ -26,7 +26,8 @@ class BusinessesController < ApplicationController
           if params[:ratings] # prices filters and have ratings rilters
             @ratings_to_show = params[:ratings] 
             session[:ratings] = @ratings_to_show
-            @businesses = Business.new.get_business_from_category(@category, zip_code).with_ratings_prices(@category,@ratings_to_show.keys,@prices_to_show.keys)
+            puts "here"
+            @businesses = Business.new.get_business_from_category(@category, zip_code).with_ratings_prices(@category, @ratings_to_show.keys, @prices_to_show.keys, zip_code)
             # if(@businesses.length < 1)
             #   return "No businesses found"
             # end
@@ -34,7 +35,7 @@ class BusinessesController < ApplicationController
             @businesses = @businesses.zip(@distances).sort_by{ |business,distance| distance}
           else  # prices filters but no ratings filters
             @ratings_to_show = session[:ratings] || @all_ratings
-            @businesses = Business.new.get_business_from_category(@category, zip_code).with_prices(@prices_to_show.keys) 
+            @businesses = Business.new.get_business_from_category(@category, zip_code).with_prices(@prices_to_show.keys, zip_code) 
             # if(@businesses.length < 1)
             #   return "No businesses found"
             # end
@@ -46,7 +47,7 @@ class BusinessesController < ApplicationController
           if params[:ratings] # no prices filters but have ratings rilters
             @ratings_to_show = params[:ratings] 
             session[:ratings] = @ratings_to_show
-            @businesses = Business.new.get_business_from_category(@category, zip_code).with_ratings(@category,@ratings_to_show.keys) 
+            @businesses = Business.new.get_business_from_category(@category, zip_code).with_ratings(@category, @ratings_to_show.keys, zip_code) 
             # if(@businesses.length < 1)
             #   return "No businesses found"
             # end
