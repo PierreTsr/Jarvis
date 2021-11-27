@@ -38,7 +38,7 @@ class BusinessesController < ApplicationController
       end
       session[:prices] = @prices_to_show
       session[:ratings] = @ratings_to_show
-      @businesses = Business.businesses_with_ratings_prices(@category, @ratings_to_show.keys, @prices_to_show.keys, zip_code, locations)
+      @businesses = Business.businesses_with_ratings_prices(@category, @ratings_to_show.keys, @prices_to_show.keys, locations)
       coords = []
       @businesses.each_with_index do |cd, i| 
         cd_json = cd.as_json

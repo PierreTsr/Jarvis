@@ -1,5 +1,5 @@
 class Business < ApplicationRecord
-  def get_business_from_category(category, zip_code, coordinates)
+  def get_business_from_category(category, coordinates)
     top_latitude, top_longitude = coordinates[:top]
     bottom_latitude, bottom_longitude = coordinates[:bottom]
     Business.where("category = ? AND latitude >= ? AND  latitude <= ? AND longitude >= ? AND longitude <= ?", category, top_latitude, bottom_latitude, top_longitude, bottom_longitude)
@@ -10,7 +10,7 @@ class Business < ApplicationRecord
     Business.distinct(:category).pluck(:category)
   end
 
-  def self.businesses_with_prices(category, prices_list, zip_code, coordinates)
+  def self.businesses_with_prices(category, prices_list, coordinates)
       top_latitude, top_longitude = coordinates[:top]
       bottom_latitude, bottom_longitude = coordinates[:bottom]
     # if prices_list is an array retrieve all businesses with those prices
@@ -23,7 +23,7 @@ class Business < ApplicationRecord
     end
 
 
-  def self.businesses_with_ratings(category, ratings_list, zip_code, coordinates)
+  def self.businesses_with_ratings(category, ratings_list, coordinates)
     top_latitude, top_longitude = coordinates[:top]
     bottom_latitude, bottom_longitude = coordinates[:bottom]
     # if ratings_list is an array retrieve all businesses with those ratings
@@ -38,7 +38,7 @@ class Business < ApplicationRecord
   end
 
 
-def self.businesses_with_ratings_prices(category, ratings_list, prices_list, zip_code, coordinates)
+def self.businesses_with_ratings_prices(category, ratings_list, prices_list, coordinates)
     top_latitude, top_longitude = coordinates[:top]
     bottom_latitude, bottom_longitude = coordinates[:bottom]
     if ratings_list and prices_list
