@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-
+body {
+  min-height: 100vh;
+}
 .questions-masthead {
   background: none;
   height: calc(100vh - 14rem);

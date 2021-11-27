@@ -65,6 +65,11 @@
       <section class="container">
         <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% if @businesses.nil? || @businesses.length() == 0%>
+          <div class="col w-100 my-4">
+            <h4>No recommendations found for the filter and location you have selected.</h4>
+          </div>
+        <% else %>
           <% @businesses.each_with_index do |tuple, index| %>
           <div class="col business">
             <div class="<%= index == 0 ? "banner show" : "hide" %>">CLOSEST</div>
@@ -81,12 +86,13 @@
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <a style="outline:none;color:#000;text-decoration:none;border:1px solid #000; padding: 0rem 0.5rem;" href="tel:" + <%= tuple[0].phone %>>Call</a>
-                    <p class="text-muted" style="margin-top:auto;margin-bottom:auto;"><%= tuple[0].address %>,&nbsp;<%= tuple[0].zip_code %> </p>
+                    <p class="text-muted" style="margin-top:auto;margin-bottom:auto;margin-left:1rem;"><%= tuple[0].address %>,&nbsp;<%= tuple[0].zip_code %> </p>
                   </div>
                 </div>
               </div>
           </div>
           <% end %>
+        <% end %>
         </div>
       </section>
     </div>

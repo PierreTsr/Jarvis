@@ -12,6 +12,8 @@ class CreateBusinesses < ActiveRecord::Migration[6.1]
       t.string :img_url
       t.float :longitude
       t.float :latitude
+      t.string :hours
+      t.string :special_features
       t.timestamps
     end
   end
