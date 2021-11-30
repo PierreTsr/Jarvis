@@ -71,13 +71,43 @@
                 </div>
             </div>
 
-            <div class="row rating">
+            <div class="row ratings">
 
             <h4>Reviews</h4>
+
+                <div class="col-lg-12 mb-4">
+                    <% if user_signed_in? %>
+                    
+                    <%= form_with model: Review.new, url: new_reviews_path, :html => { :id => "review-form" } do |form| %>
+                    <div class="txt-center">
+                            <div class="rating">
+
+                                <%= form.collection_radio_buttons :rating, [[5], [4], [3], [2], [1]], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |b| %>
+                                <%= b.radio_button :class => 'radio-btn hide'  %>
+                                <%= b.label {'☆'} %>
+                                <% end %>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <%= form.text_field :title, placeholder: "Title", required: true %>
+                        <%= form.text_area :comment, placeholder: "Your review here", required: true %>
+                        <%= form.hidden_field :user_id, :value => current_user.id %>
+                        <%= form.hidden_field :business_id, :value => @business.id %>
+                        <%= form.submit "Submit"%>
+                    <% end %>
+                        
+                    <% else %>
+                        <%= link_to "Sign in", new_user_session_path %> 
+                        or <%= link_to "Sign up", new_user_registration_path %> to leave a review 
+                    <% end %>
+                </div>
+
                 <div class="col-lg-12">
+                        
 
                         <% if @reviews.any? %>
-                        <% @reviews.each do |review| %>
+                            <% @reviews.each do |review| %>
 
                             <div class="box">  
                                 <%= image_tag "user_profile_placeholder.png", class: "img-fluid"%>
@@ -110,7 +140,7 @@
                     <% else %>
                         <p>No reviews at the moment.</p>
                     <% end %>
-                      <%= will_paginate @reviews, renderer: BootstrapPagination::Rails  %>
+                      <%= will_paginate @reviews, renderer: WillPaginate::ActionView::BootstrapLinkRenderer  %>
                 </div>
 
             </div>

@@ -74,8 +74,8 @@ class BusinessesController < ApplicationController
   def show
     id = params[:id]
     @business = Business.find(id)
-    @rating = Review.new.get_rating(id)
-    @reviews = Review.new.get_reviews(id).paginate(page: params[:page], per_page: 2)
+    @rating = Review.get_rating(id)
+    @reviews = Review.get_reviews(id).order(created_at: :desc).paginate(page: params[:page], per_page: 2)
   end
   
   protected

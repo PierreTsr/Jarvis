@@ -20,7 +20,7 @@
     color: rgba(110,112,114,1);
     font-size: 14px;
 }
-.rating, .info {
+.ratings, .info {
     margin-top: 50px;
 }
 
@@ -28,3 +28,96 @@
     padding: 5px;
     margin: 5px;
 }
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+
+#review-form {
+    text-align: left;
+}
+
+#review-form input {
+    width: 70%; 
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+#review-form textarea{
+    width: 70%; 
+    margin-top: 1%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+#review-form input[type=submit]{
+    width: 20%; 
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    display: block;
+}
+.txt-center {
+    text-align: center;
+}
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 90px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+}
+
+.rating > label {
+    float: right;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #64a19d;
+}
+
+@media screen and (max-width: 700px) {
+    #review-form input, #review-form textarea {
+      width: 100%;
+    }
+    #review-form input[type=submit]{
+        width: 40%; 
+    }
+  }

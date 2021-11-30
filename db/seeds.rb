@@ -139,6 +139,44 @@ businesses = [
   {"name": "Chase Bank", "category": "banks", "address": "253 Broadway", "zip_code": "10007", "price": "", "phone": "+12125777020", "display_phone": "(212) 577-7020", "rating": 3.0, "img_url": "https://s3-media2.fl.yelpcdn.com/bphoto/acBI84SjLf3b6A2M_lA6og/o.jpg", "longitude": -74.00741, "latitude": 40.71343}
   ]
 
+users = [
+  {"name": "user1", "email": "user11@gmail.com", "from_country": "India", "work": 1, 'address': 'Address 1', 'budget': 1000, 'zip_code': 10025, 'latitude': 1.0, 'longitude': 1.0, 'password': '#$taawktljasktlw4aaglj'},
+  {"name": "user2", "email": "user22@gmail.com", "from_country": "Canada", "work": 1, 'address': 'Address 2', 'budget': 1500, 'zip_code': 10026, 'latitude': 1.0, 'longitude': 1.0, 'password': '#$taawktljasktlw4aaglj'},
+  {"name": "user3", "email": "user33@gmail.com", "from_country": "France", "work": 1, 'address': 'Address 3', 'budget': 1000, 'zip_code': 10026, 'latitude': 1.0, 'longitude': 1.0, 'password': '#$taawktljasktlw4aaglj'},
+  {"name": "user4", "email": "user44@gmail.com", "from_country": "Serbia", "work": 1, 'address': 'Address 4', 'budget': 2000, 'zip_code': 10027, 'latitude': 1.0, 'longitude': 1.0, 'password': '#$taawktljasktlw4aaglj'},
+  {"name": "user5", "email": "user55@gmail.com", "from_country": "India", "work": 1, 'address': 'Address 5', 'budget': 3000, 'zip_code': 10028, 'latitude': 1.0, 'longitude': 1.0, 'password': '#$taawktljasktlw4aaglj'},
+]
+
+
+created_users = []
+created_businesses = []
+
+users.each do |user|
+  cur_user = User.new(user)
+  cur_user.save! 
+  created_users.push(cur_user.id)
+end 
+
 businesses.each do |business|
-  Business.create!(business)
+  #Business.create!(business)
+  cur_business = Business.new(business)
+  cur_business.save!
+  created_businesses.push(cur_business.id)
 end
+
+titles = ['Good place', 'Average', 'Highly recommended']
+
+comments = ['Best. Place. Ever! Really good.', 'I would gladly pay over 600 dollars for this place. 
+            Thanks for the great service. I have gotten at least 50 times the value from other place. Not able to tell you how happy I am with this.',
+            "I will recommend you to my colleagues.", "Keep up the excellent work. Store impressed me on multiple levels.",
+            "If you aren't sure, always go for store. We have no regrets! It's exactly what I've been looking for. I love your system.",
+            "Dude, your stuff is the bomb! Store is worth much more than I paid. I don't know what else to say.",
+            "Just what I was looking for. I am really satisfied with my store. I love your system. I made back the purchase price in just 48 hours!"]
+
+created_businesses.each do |business|
+  created_users.each do |user|
+    review = {'business_id': business, 'user_id': user, 'rating': rand(3..5), 'title': titles.sample, 'comment': comments.sample}
+    Review.create!(review)
+  end 
+end 
+
