@@ -47,6 +47,12 @@
                             Sign Out
                             <%end%>
                         <%end%>
+                        <%= content_tag :li ,class: "nav-item" do%>
+                          <%=link_to  edit_user_registration_path, class:"nav-link" do%>
+                            <i class="batch-icon batch-icon-search"></i>
+                            My account  
+                          <%end%>
+                        <%end%>
                       <% else %>
                           <%= content_tag :li ,class: "nav-item" do%>
                             <%=link_to  new_user_session_path, class:"nav-link" do%>

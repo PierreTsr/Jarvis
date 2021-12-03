@@ -13,6 +13,39 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :from_country %><br />
+    <%= f.text_field :from_country, autofocus: true, autocomplete: "country" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address, autofocus: true, autocomplete: "address" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :work %><br />
+    <%= f.text_field :work, autofocus: true, autocomplete: "work" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :budget %><br />
+    <%= f.text_field :budget, autofocus: true, autocomplete: "budget" %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :latitude, autofocus: true, autocomplete: "latitude" %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :longitude, autofocus: true, autocomplete: "longitude" %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
@@ -41,3 +74,29 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+
+<%= javascript_include_tag 'questions' %>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete">
+</script>
+<script>
+    let autocomplete;
+    function initAutoComplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('user_address'),
+            {
+                types: ['address'],
+                componentRestrictions: {country : ['US']},
+                fields: ["place_id", "geometry", "name"]
+            }
+        )
+        autocomplete.addListener('place_changed', (e) => {
+            let place = autocomplete.getPlace()
+            let place_coordinates = [place.geometry.location.lat(), place.geometry.location.lng()] // [Latitude, Longitude]
+            latitude_el = document.getElementById('user_latitude')
+            longitude_el = document.getElementById('user_longitude')
+            latitude_el.value = place_coordinates[0]
+            longitude_el.value = place_coordinates[1]
+        })
+    }
+</script>

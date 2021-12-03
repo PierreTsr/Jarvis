@@ -73,6 +73,7 @@ class User < ApplicationRecord
 	end
 
 	def self.clean_and_complete(answers)
+		puts answers
 		answers = self.clean_answers answers
 		answers = self.infer_zip_code answers unless answers.nil?
 		answers
