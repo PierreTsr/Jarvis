@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-
+body {
+  min-height: 100vh;
+}
 .questions-masthead {
   background: none;
   height: calc(100vh - 14rem);
@@ -30,4 +32,14 @@ form {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   padding-bottom: 2rem;;
+}
+
+.questions {
+  transition: visibility 1s ease-in;
+}
+
+.v-none {
+  visibility: hidden;
+  position: absolute;
+  pointer-events: none;
 }

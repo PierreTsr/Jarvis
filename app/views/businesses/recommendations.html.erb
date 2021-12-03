@@ -19,76 +19,83 @@
     <%= stylesheet_link_tag :recommendations %>
   </head>
   <body>
-<main>
-  <section class="text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Recommendations</h1>
-        <p class="lead text-muted">Here Are Your <%= params[:category].capitalize %> Recommendations</p>
-        <%= link_to "Back to Categories", categories_path, class:"btn btn-sm btn-outline-secondary" %>
-      </div>
-    </div>
-  </section>
-  
-  <div class="container-fluid">
-  <section class="py-5 text-center container">
-  <div class="row">
-  <div class="col-sm-auto">
-  <%= form_tag recommendations_path, method: :get, id: 'filters_form' do %>
-    Filter By:
-    </div>
-    <div class="col-sm-auto">
-    Prices:
-    <% @all_prices.keys.each do |price| %>
-      <div class="form-check  form-check-inline">
-        <%= label_tag "prices[#{price}]", price, class: 'form-check-label' %>
-        <%= check_box_tag "prices[#{price}]", "1",  @prices_to_show.include?(price), class: 'form-check-input' %>
-      </div>
-    <% end %>
-    </div>
-    <div class="col-sm-auto">
-    Ratings:
-    <% @all_ratings.keys.each do |rating| %>
-      <div class="form-check  form-check-inline">
-        <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
-        <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), class: 'form-check-input' %>
+  <main>
+    <section class="text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Recommendations</h1>
+          <p class="lead text-muted">Here Are Your <%= params[:category].capitalize %> Recommendations</p>
+          <%= link_to "Back to Categories", categories_path, class:"btn btn-sm btn-outline-secondary" %>
         </div>
-        <% end %>
-        <input type="hidden" name="category" value="<%= @category %>"/>
+      </div>
+    </section>
+    
+    <div class="container">
+      <%= form_tag recommendations_path, method: :get, id: 'filters_form' do %>
+      <div class="row text-center j-left">
+        <div class="col-sm-12 text-left">
+          <h3>Filters</h3>
         </div>
-        <div class="col-sm-auto">     
-    <%= submit_tag 'Refresh', id: 'filters_submit', class: 'btn-primary btn-sm' %>
-    </div>
-  </div> 
-  <% end %>  
-
-  <div class="album py-5 bg-light">
-  <div class="container">
-  <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% @businesses.each_with_index do |tuple, index| %>
-        <div class="col business">
-          <div class="<%= index == 0 ? "banner show" : "hide" %>">CLOSEST</div>
-          <div class="card shadow-sm">
-            <%= image_tag((tuple[0]['img_url'] == '' ? tuple[0].category + '.jpg' : tuple[0].img_url), class: "card-img-top", style: 'object-fit:cover; object-position: center;width:100%; height:225px;') %>
-            <div class="card-body">
-               <div class="d-flex justify-content-between align-items-center">
-                 <p>  <%= link_to tuple[0].name , business_detail_path(:id => tuple[0].id)%></p>
-                 <small class="text-muted rating" style="margin-bottom: 1rem;"> <%= tuple[0].rating %>/5.0 </small>
-               </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <p style="text-align: left;" class="text-muted"><%= tuple[0].display_phone %></p>
-                <small class="text-muted"> <%= tuple[0].price %></small>
+        <div class="col-sm-auto">
+          Prices:
+            <% @all_prices.keys.each do |price| %>
+              <div class="form-check form-check-inline">
+                <%= label_tag "prices[#{price}]", price, class: 'form-check-label' %>
+                <%= check_box_tag "prices[#{price}]", "1",  @prices_to_show.include?(price), class: 'form-check-input' %>
               </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <a style="outline:none;color:#000;text-decoration:none;border:1px solid #000; padding: 0rem 0.5rem;" href="tel:" + <%= tuple[0].phone %>>Call</a>
-                <p class="text-muted" style="margin-top:auto;margin-bottom:auto;"><%= tuple[0].address %>,&nbsp;<%= tuple[0].zip_code %> </p>
-              </div>
+            <% end %>
+        </div>
+        <div class="col-sm-auto">
+          Ratings:
+          <% @all_ratings.keys.each do |rating| %>
+            <div class="form-check  form-check-inline">
+              <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
+              <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), class: 'form-check-input' %>
             </div>
-          </div>
+          <% end %>
+          <input type="hidden" name="category" value="<%= @category %>"/>
         </div>
+        <div class="col-sm-auto">
+          <%= submit_tag 'Refresh', id: 'filters_submit', class: 'btn-primary btn-sm' %>
+        </div>
+      </div>
       <% end %>
+    </div>
+    <div class="album py-5 bg-light">
+      <section class="container">
+        <h1> <%= params[:category].nil? ? 'Recommendations' : params[:category].capitalize  %> </h1>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% if @businesses.nil? || @businesses.length() == 0%>
+          <div class="col w-100 my-4">
+            <h4>No recommendations found for the filter and location you have selected.</h4>
+          </div>
+        <% else %>
+          <% @businesses.each_with_index do |tuple, index| %>
+          <div class="col business">
+            <div class="<%= index == 0 ? "banner show" : "hide" %>">CLOSEST</div>
+            <div class="card shadow-sm">
+                <%= image_tag((tuple[0]['img_url'] == '' ? tuple[0].category + '.jpg' : tuple[0].img_url), class: "card-img-top", style: 'object-fit:cover; object-position: center;width:100%; height:225px;') %>
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p>  <%= link_to tuple[0].name , business_detail_path(:id => tuple[0].id)%></p>
+                    <small class="text-muted rating" style="margin-bottom: 1rem;"> <%= tuple[0].rating %>/5.0 </small>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p style="text-align: left;" class="text-muted"><%= tuple[0].display_phone %></p>
+                    <small class="text-muted"> <%= tuple[0].price %></small>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <a style="outline:none;color:#000;text-decoration:none;border:1px solid #000; padding: 0rem 0.5rem;" href="tel:" + <%= tuple[0].phone %>>Call</a>
+                    <p class="text-muted" style="margin-top:auto;margin-bottom:auto;margin-left:1rem;"><%= tuple[0].address %>,&nbsp;<%= tuple[0].zip_code %> </p>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <% end %>
+        <% end %>
+        </div>
+      </section>
+    </div>
   </main>
   <%= javascript_include_tag 'recommendations' %> 
 

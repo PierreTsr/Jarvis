@@ -20,10 +20,10 @@
         <header class="masthead questions-masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
-                <%= form_with model: User.new, url: {action: :answer} do |form| %>
-                    <h3 class="h3">Let us get to know you:</h3>
+                <%= form_with model: User.new, url: {action: :answer}, :html => {:id => "questions-form"} do |form| %>
+                    <%# <h3 class="h3">Let us get to know you:</h3> %>
                     <% @questions.each do |id, question| %>
-                        <div class="<%= id.match?(/zip_code|latitude|longitude/) ? 'text-center questions hide-text' : 'text-center questions' %>">
+                        <div class="<%= id.match?(/zip_code|latitude|longitude/) ? 'text-center questions hide-text' : 'text-center questions v-none' %>">
                           <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>
                            <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.text_field id, placeholder: @placeholders[id], required: true %></h4>
                              
@@ -33,16 +33,18 @@
                                 <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.text_field id, placeholder: @placeholders[id], required: true %></h4>
                              <% end %> -->
 
-                            <%# <a class="btn btn-primary next" >Next</a> %>
+                            <a class="btn btn-primary next" >Next</a>
                         </div>
                     <% end %>
-                    <div class="text-center questions">
+                    <div class="text-center questions v-none">
                       <h2 class="mx-auto my-0 text-uppercase mb-4">
                         <%= form.label :create_account, "Create an account?" %>
                         <%= check_box_tag :create_account, true, false %>
                       </h2>
+                    <a class="btn btn-primary next" >Next</a>
                     </div>
-                    <%= form.submit "Submit", :class => 'btn btn-primary submit_bt'%>
+                    <h2 class="h2 mx-auto my-0 text-uppercase mb-4 all-set-text v-none">You're all set!</h2>
+                    <%= form.submit "Get Recommendations", :class => 'btn btn-primary submit_bt v-none'%>
                 <% end %>
 
                 </div>
@@ -92,11 +94,15 @@
             </div>
         </section> %>
         <%= javascript_include_tag 'questions' %>
-        <script async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete">
-        </script>
         <script>
-            let autocomplete;
+            if(window.google) {
+                initAutoComplete()
+            } else {
+                var googleMapsScript = document.createElement('script');
+                googleMapsScript.setAttribute('src','https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete');   
+                document.head.appendChild(googleMapsScript);
+            }
+            var autocomplete;
             function initAutoComplete() {
                 autocomplete = new google.maps.places.Autocomplete(
                     document.getElementById('user_address'),
@@ -113,6 +119,7 @@
                     longitude_el = document.getElementById('user_longitude')
                     latitude_el.value = place_coordinates[0]
                     longitude_el.value = place_coordinates[1]
+                    console.log(place_coordinates)
                 })
             }
         </script>
