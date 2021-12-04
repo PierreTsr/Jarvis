@@ -33,3 +33,6 @@
 .j-left {
   justify-content: left;
 }
+.rating {
+  direction: ltr
+}
