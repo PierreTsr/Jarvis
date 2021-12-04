@@ -79,5 +79,6 @@ gem 'simplecov', require: false, group: :test
 gem 'rails-controller-testing'
 
 gem 'will_paginate', '~> 3.3.0'
-gem 'will_paginate-bootstrap'
+gem 'will_paginate-bootstrap-style'
+
 gem 'geocoder'

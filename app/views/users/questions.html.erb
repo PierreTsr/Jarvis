@@ -20,29 +20,52 @@
         <header class="masthead questions-masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
-                <%= form_with model: User.new, url: {action: :answer} do |form| %>
-                    <h3 class="h3">Let us get to know you:</h3>
+                <%= form_with model: User.new, url: {action: :answer}, :html => {:id => "questions-form"} do |form| %>
+                    <%# <h3 class="h3">Let us get to know you:</h3> %>
                     <% @questions.each do |id, question| %>
-                        <div class="<%= id.match?(/zip_code|latitude|longitude/) ? 'text-center questions hide-text' : 'text-center questions' %>">
+                        <div class="<%= id.match?(/zip_code|latitude|longitude/) ? 'text-center questions hide-text' : 'text-center questions v-none' %>">
                           <h2 class="mx-auto my-0 text-uppercase"><%= form.label id, question %></h2>
-                           <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.text_field id, placeholder: @placeholders[id], required: true %></h4>
-                             
+                           <h4 class="mx-auto mt-2 mb-5 input-fields">
+                            <% if 'from_country'.eql? id.to_s %>
+                                <%= form.select id, options_for_select(@countries), selected: "Select Country" %> 
+                            <% elsif 'work'.eql? id.to_s %>
+                                <%= form.radio_button id, 'student' %>
+                                <%= form.label id, 'Student', :value => 'Student' %>
+                                <%= form.radio_button id, 'professional' %>
+                                <%= form.label id, 'Professional', :value => 'Professional' %>
+                            <% elsif 'budget'.eql? id.to_s %>
+                                <%= form.radio_button id, '1' %>
+                                <%= form.label id, '$', :value => '1' %>
+                                <%= form.radio_button id, '2' %>
+                                <%= form.label id, '$$', :value => '2' %>
+                                <%= form.radio_button id, '3' %>
+                                <%= form.label id, '$$$', :value => '3' %>
+                                <%= form.radio_button id, '4' %>
+                                <%= form.label id, '$$$$', :value => '4' %>
+                            <% else %>
+                                <%= form.text_field id, placeholder: @placeholders[id], required: true %>
+                            <% end %>
+                            </h4>
                              <!--<% if id == 'budget' %>
                                 <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.number_field id, placeholder: @placeholders[id], required: true %></h4>
                              <% else %>
                                 <h4 class="text-white-50 mx-auto mt-2 mb-5"><%= form.text_field id, placeholder: @placeholders[id], required: true %></h4>
                              <% end %> -->
 
-                            <%# <a class="btn btn-primary next" >Next</a> %>
+                            <a class="btn btn-primary next" id="<%= id %>">Next</a>
                         </div>
                     <% end %>
-                    <div class="text-center questions">
+                    <div class="text-center questions v-none">
                       <h2 class="mx-auto my-0 text-uppercase mb-4">
+                        <h4 class="mx-auto mt-2 mb-5 input-fields">
                         <%= form.label :create_account, "Create an account?" %>
                         <%= check_box_tag :create_account, true, false %>
+                        </h4>
                       </h2>
+                    <a class="btn btn-primary next" id="create_account" >Next</a>
                     </div>
-                    <%= form.submit "Submit", :class => 'btn btn-primary submit_bt'%>
+                    <h2 class="h2 mx-auto my-0 text-uppercase mb-4 all-set-text v-none">You're all set!</h2>
+                    <%= form.submit "Get Recommendations", :class => 'btn btn-primary submit_bt v-none'%>
                 <% end %>
 
                 </div>
@@ -92,11 +115,15 @@
             </div>
         </section> %>
         <%= javascript_include_tag 'questions' %>
-        <script async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete">
-        </script>
         <script>
-            let autocomplete;
+            if(window.google) {
+                initAutoComplete()
+            } else {
+                var googleMapsScript = document.createElement('script');
+                googleMapsScript.setAttribute('src','https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete');   
+                document.head.appendChild(googleMapsScript);
+            }
+            var autocomplete;
             function initAutoComplete() {
                 autocomplete = new google.maps.places.Autocomplete(
                     document.getElementById('user_address'),
@@ -113,6 +140,7 @@
                     longitude_el = document.getElementById('user_longitude')
                     latitude_el.value = place_coordinates[0]
                     longitude_el.value = place_coordinates[1]
+                    console.log(place_coordinates)
                 })
             }
         </script>

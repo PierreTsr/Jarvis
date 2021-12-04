@@ -28,6 +28,9 @@ form {
 .sign-up-form .actions {
     margin-top: 2rem;
 }
+.sign-up-form .actions .form-button {
+    width: fit-content;
+}
 #remember_checkbox {
     width: 30px;
 }

@@ -1,43 +1,118 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= stylesheet_link_tag 'edit_profile', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+<main style="padding: 50px 0;">
+<div class="container signup-wrapper">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <h2>Your personal information</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "sign-up-form"}) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
+
+    <div class="form-group field">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "EMAIL", class: 'form-control' %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="form-group field">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "NAME", class: 'form-control'  %>
+    </div>
+
+    <div class="form-group field">
+      <%= f.label :from_country %>
+      <%= f.text_field :from_country, autofocus: true, autocomplete: "country", placeholder: "COUNTRY", class: 'form-control'  %>
+    </div>
+
+    <div class="form-group field">
+      <%= f.label :address %>
+      <%= f.text_field :address, autofocus: true, autocomplete: "address", placeholder: "ADDRESS" , class: 'form-control' %>
+    </div>
+
+    <div class="form-group field">
+      <%= f.label :work %>
+      <%= f.text_field :work, autofocus: true, autocomplete: "work", placeholder: "WORK CATEGORY", class: 'form-control'  %>
+    </div>
+
+    <div class="form-group field">
+      <%= f.label :budget %>
+      <%= f.text_field :budget, autofocus: true, autocomplete: "budget", placeholder: "BUDGET", class: 'form-control'  %>
+    </div>
+
+    <%# <h3>Change your password</h3> %>
+
+    <div class="form-group field">
+      <%= f.label :new_password %>
+      <i>(leave blank for no change)</i>
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "NEW PASSWORD", class: 'form-control'  %>
+      <% if @minimum_password_length %>
+        <em><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </div>
+
+    <div class="form-group field">
+      <%= f.label :new_password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "NEW PASSWORD", class: 'form-control'  %>
+    </div>
+
+    <%# <h3>Enter your current password to confirm</h3> %>
+
+    <div class="form-group field">
+      <%= f.label :current_password %> 
+      <i>(required)</i>
+      <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "CURRENT PASSWORD", class: 'form-control'  %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Update", class: 'btn btn-primary' %>
+    </div>
+
+    <div class="form-group field">
+      <%= f.hidden_field :latitude, autofocus: true, autocomplete: "latitude", class: 'form-control'  %>
+    </div>
+
+    <div class="form-group field">
+      <%= f.hidden_field :longitude, autofocus: true, autocomplete: "longitude", class: 'form-control'  %>
+    </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+  <div class="cancel-account-wrapper">
+    <h3>Cancel my account</h3>
+    <p>Cancel your account? We are sad to see you go!</p> 
+    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, class: 'btn btn-danger', method: :delete %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+  <!-- <%= link_to "Back", :back %> -->
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+  <%= javascript_include_tag 'questions' %>
+  <script async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&libraries=places&callback=initAutoComplete">
+  </script>
+  <script>
+      let autocomplete;
+      function initAutoComplete() {
+          autocomplete = new google.maps.places.Autocomplete(
+              document.getElementById('user_address'),
+              {
+                  types: ['address'],
+                  componentRestrictions: {country : ['US']},
+                  fields: ["place_id", "geometry", "name"]
+              }
+          )
+          autocomplete.addListener('place_changed', (e) => {
+              let place = autocomplete.getPlace()
+              let place_coordinates = [place.geometry.location.lat(), place.geometry.location.lng()] // [Latitude, Longitude]
+              latitude_el = document.getElementById('user_latitude')
+              longitude_el = document.getElementById('user_longitude')
+              latitude_el.value = place_coordinates[0]
+              longitude_el.value = place_coordinates[1]
+          })
+      }
+  </script>	
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>

@@ -27,7 +27,9 @@
 
             <div class="row info">
                 <div class="col-lg-8">
-                    <h4>About the business</h4>
+                    <h4>Location</h4>
+                    <div id="map" class="mb-4"></div>
+                     <h4>About the business</h4>
                     <p>Columbus Hardware, your neighborhood hardware store for over 80 years! We supply residential
                         and commercial with.. Locksmith Plumbing Electrical Paint House essentials Gardening Building
                         materials Tools & Hardware "Everyone Needs a Screw."</p>
@@ -35,49 +37,69 @@
                      <h4>Covid-19 updates</h4>
                         <p>"We will remain oped during COVID-19. Our temporary Hours will be from 8am to 
                         5pm on weekdays and from 9am to 4pm on saturday. Please try to keep atleast 6 ft in distance when coming in to the store. Contact store for day by day face mask availability."</p>
+                    <% if @features %>
+                    <h4>Special features</h4>
+                     <ul>
+                        <% @features.each do |f| %>
+                            <li><%= f %></li>
+                        <% end %>
+                        </ul>
+                    <% end%>
                 </div>
+
+                
                 <div id="working-hours" class="col-lg-4">
+                <% if @working_hours %>
+             
                     <h4>Working hours</h4>
                     <table>
+                    <% @working_hours.each do |day| %>
                         <tr>
-                            <td>Mon </td>
-                            <td>8:00 AM - 6:00 PM</td>
+                            <td><%= day["day"]%> </td>
+                            <td><%= day["start"]%> - <%= day["end"]%></td>
                         </tr>
-                        <tr>
-                            <td>Tue</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Wed</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Thu</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Fri</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Sat</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Sun</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
+                    <% end %>
                         </table>
                 </div>
+                <% end %>
             </div>
 
-            <div class="row rating">
+            <div class="row ratings">
+            
+            <h3>Reviews</h3>
+            <p class="font-weight-light mt-2">Leave your review here</p>
+                <div class="col-lg-12 mb-4">
+                    <% if user_signed_in? %>
+                    <%= form_with model: Review.new, url: new_reviews_path, :html => { :id => "review-form" } do |form| %>
+                    <div class="txt-center">
+                            <div class="rating">
 
-            <h4>Reviews</h4>
+                                <%= form.collection_radio_buttons :rating, [[5], [4], [3], [2], [1]], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |b| %>
+                                <%= b.radio_button :class => 'radio-btn hide',  required: true  %>
+                                <%= b.label {'☆'} %>
+                                <% end %>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <%= form.text_field :title, placeholder: "Title", required: true %>
+                        <%= form.text_area :comment, placeholder: "Your review here", required: true %>
+                        <%= form.hidden_field :user_id, :value => current_user.id %>
+                        <%= form.hidden_field :business_id, :value => @business.id %>
+                        <%= form.submit "Submit"%>
+                    <% end %>
+                        
+                    <% else %>
+                        <%= link_to "Sign in", new_user_session_path %> 
+                        or <%= link_to "Sign up", new_user_registration_path %> to leave a review 
+                    <% end %>
+                </div>
+
                 <div class="col-lg-12">
+                        
 
                         <% if @reviews.any? %>
-                        <% @reviews.each do |review| %>
+                            <% @reviews.each do |review| %>
 
                             <div class="box">  
                                 <%= image_tag "user_profile_placeholder.png", class: "img-fluid"%>
@@ -110,9 +132,31 @@
                     <% else %>
                         <p>No reviews at the moment.</p>
                     <% end %>
-                      <%= will_paginate @reviews, renderer: BootstrapPagination::Rails  %>
+                      <%= will_paginate @reviews, renderer: WillPaginate::ActionView::BootstrapLinkRenderer  %>
                 </div>
 
             </div>
+            <input type="hidden" id="latitude" value=<%= @business["latitude"]%>>
+            <input type="hidden" id="longitude" value=<%= @business["longitude"]%>>
     </div>
     
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&callback=initMap&libraries=&v=weekly&" async></script>
+
+    <script> 
+        function initMap() {
+        // The location of Uluru
+        const lat = parseFloat($('#latitude').val())
+        const long = parseFloat($('#longitude').val())
+        const uluru = { lat: lat, lng: long };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+        });
+        }
+</script>

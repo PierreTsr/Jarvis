@@ -1,0 +1,25 @@
+.signup-wrapper {
+    height: fit-content;
+}
+
+.signup-wrapper form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+}
+
+.field input {
+    margin-top: 0; 
+    border: 1px solid #000;      
+}
+
+.field input[type="hidden"] {
+    height: 0;
+}

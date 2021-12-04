@@ -21,6 +21,7 @@ module NavigationHelpers
 			when "the Category page" then "/categories"
 			when "the Home page" then "/"
 			when "the Sign Up page" then "/users/sign_up"
+			when "the Profile page" then "/users/edit"
 			else
 				begin
 					page_name =~ /^the (.*) page$/

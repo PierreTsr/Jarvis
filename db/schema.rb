@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2021_11_16_014242) do
     t.string "img_url"
     t.float "longitude"
     t.float "latitude"
+    t.string "hours"
+    t.string "special_features"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"

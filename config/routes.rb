@@ -11,4 +11,10 @@ Rails.application.routes.draw do
 			post 'answer', as: 'answer'
 		end
 	end
+
+	resources :reviews do 
+		collection do 
+			post 'new', as: 'new'
+		end 
+	end 
 end
