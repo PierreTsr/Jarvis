@@ -38,8 +38,16 @@ form {
   transition: visibility 1s ease-in;
 }
 
+.input-fields {
+  color: rgb(33,37,41);
+}
+.input-fields label {
+  margin-right: 1rem;
+}
+
 .v-none {
-  visibility: hidden;
+  display: none;
+  /* visibility: hidden; */
   position: absolute;
   pointer-events: none;
 }

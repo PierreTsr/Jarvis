@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 	def questions
 		@questions = User.questions
 		@placeholders = User.placeholders
+		@countries = User.countries
 		render :questions
 	end
 
