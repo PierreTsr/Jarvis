@@ -29,19 +29,11 @@
                 <div class="col-lg-8">
                     <h4>Location</h4>
                     <div id="map" class="mb-4"></div>
-                     <h4>About the business</h4>
-                    <p>Columbus Hardware, your neighborhood hardware store for over 80 years! We supply residential
-                        and commercial with.. Locksmith Plumbing Electrical Paint House essentials Gardening Building
-                        materials Tools & Hardware "Everyone Needs a Screw."</p>
-
-                     <h4>Covid-19 updates</h4>
-                        <p>"We will remain oped during COVID-19. Our temporary Hours will be from 8am to 
-                        5pm on weekdays and from 9am to 4pm on saturday. Please try to keep atleast 6 ft in distance when coming in to the store. Contact store for day by day face mask availability."</p>
-                    <% if @features %>
+                     <% if @features.length() != 0 %>
                     <h4>Special features</h4>
                      <ul>
                         <% @features.each do |f| %>
-                            <li><%= f %></li>
+                            <li style="text-transform: capitalize;"><%= f %></li>
                         <% end %>
                         </ul>
                     <% end%>
