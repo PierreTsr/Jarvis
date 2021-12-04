@@ -32,7 +32,6 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarResponsive">
                   <ul class="navbar-nav ms-auto">
-                      <%# <li class="nav-item"><a class="nav-link" href="#about">About us</a></li> %>
                       <%= content_tag :li ,class: "nav-item" do%>
                           <%=link_to  recommendations_path, class:"nav-link" do%>
                           <i class="batch-icon batch-icon-search"></i>
@@ -63,7 +62,28 @@
         <%= yield %>
       </div>
     <!-- Footer-->
-    <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Jarvis 2021</div></footer>
+    <footer class="footer bg-black small text-center text-white-50">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5">
+          <div class="col-sm">
+          <%= image_tag "JARVIS.png", style: 'height:5vw;width:5vw;display:inline;'%>
+            <p style="display:inline; white-space:nowrap;">&copy; 2021 Jarvis, Inc.</p>
+          </div>
+          <div class="col-sm">
+            <p></p>
+            <p>Terms of Service</p>
+          </div>
+          <div class="col-sm">
+            <p></p>
+            <a href = "mailto: admin@jarvis.com" class="link-secondary">Contact Us</a>
+          </div>
+          <div class="col-sm">
+            <p></p>   
+            <a href="https://github.com/PierreTsr/Jarvis" class="link-secondary">Github</a>
+          </div>
+        </div>
+      </div>
+    </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
