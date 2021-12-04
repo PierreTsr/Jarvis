@@ -1,3 +1,4 @@
+require 'json'
 class BusinessesController < ApplicationController
   before_action :get_user_data
 
@@ -57,6 +58,9 @@ class BusinessesController < ApplicationController
   def show
     id = params[:id]
     @business = Business.find(id)
+    @working_hours = JSON.parse @business.working_hours
+    puts 'HERE'
+    puts @working_hours
     @rating = Review.get_rating(id)
     @reviews = Review.get_reviews(id).order(created_at: :desc).paginate(page: params[:page], per_page: 2)
   end

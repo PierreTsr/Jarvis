@@ -37,53 +37,33 @@
                         5pm on weekdays and from 9am to 4pm on saturday. Please try to keep atleast 6 ft in distance when coming in to the store. Contact store for day by day face mask availability."</p>
                 </div>
                 <div id="working-hours" class="col-lg-4">
+                <% if @working_hours %>
+             
                     <h4>Working hours</h4>
                     <table>
+                    <% @working_hours.each do |day| %>
                         <tr>
-                            <td>Mon </td>
-                            <td>8:00 AM - 6:00 PM</td>
+                            <td><%= day["day"]%> </td>
+                            <td><%= day["start"]%> - <%= day["end"]%></td>
                         </tr>
-                        <tr>
-                            <td>Tue</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Wed</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Thu</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Fri</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Sat</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>Sun</td>
-                            <td>8:00 AM - 6:00 PM</td>
-                        </tr>
+                    <% end %>
                         </table>
                 </div>
+                <% end %>
             </div>
 
             <div class="row ratings">
-
-            <h4>Reviews</h4>
-
+            
+            <h3>Reviews</h3>
+            <p class="font-weight-light mt-2">Leave your review here</p>
                 <div class="col-lg-12 mb-4">
                     <% if user_signed_in? %>
-                    
                     <%= form_with model: Review.new, url: new_reviews_path, :html => { :id => "review-form" } do |form| %>
                     <div class="txt-center">
                             <div class="rating">
 
                                 <%= form.collection_radio_buttons :rating, [[5], [4], [3], [2], [1]], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |b| %>
-                                <%= b.radio_button :class => 'radio-btn hide'  %>
+                                <%= b.radio_button :class => 'radio-btn hide',  required: true  %>
                                 <%= b.label {'☆'} %>
                                 <% end %>
 

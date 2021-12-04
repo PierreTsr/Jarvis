@@ -73,6 +73,10 @@
     display: none;
 }
 
+#review-form {
+    margin-top: 0;
+}
+
 .clear {
     float: none;
     clear: both;
