@@ -77,6 +77,10 @@
     margin-top: 0;
 }
 
+#map {
+    height: 250px;
+    width: 80%;
+}
 .clear {
     float: none;
     clear: both;

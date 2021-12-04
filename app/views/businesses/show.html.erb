@@ -27,7 +27,9 @@
 
             <div class="row info">
                 <div class="col-lg-8">
-                    <h4>About the business</h4>
+                    <h4>Location</h4>
+                    <div id="map" class="mb-4"></div>
+                     <h4>About the business</h4>
                     <p>Columbus Hardware, your neighborhood hardware store for over 80 years! We supply residential
                         and commercial with.. Locksmith Plumbing Electrical Paint House essentials Gardening Building
                         materials Tools & Hardware "Everyone Needs a Screw."</p>
@@ -35,7 +37,17 @@
                      <h4>Covid-19 updates</h4>
                         <p>"We will remain oped during COVID-19. Our temporary Hours will be from 8am to 
                         5pm on weekdays and from 9am to 4pm on saturday. Please try to keep atleast 6 ft in distance when coming in to the store. Contact store for day by day face mask availability."</p>
+                    <% if @features %>
+                    <h4>Special features</h4>
+                     <ul>
+                        <% @features.each do |f| %>
+                            <li><%= f %></li>
+                        <% end %>
+                        </ul>
+                    <% end%>
                 </div>
+
+                
                 <div id="working-hours" class="col-lg-4">
                 <% if @working_hours %>
              
@@ -124,5 +136,27 @@
                 </div>
 
             </div>
+            <input type="hidden" id="latitude" value=<%= @business["latitude"]%>>
+            <input type="hidden" id="longitude" value=<%= @business["longitude"]%>>
     </div>
     
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6PSLv2kH7tsrxGbRwovIVe6jF9Zrw8Ak&callback=initMap&libraries=&v=weekly&" async></script>
+
+    <script> 
+        function initMap() {
+        // The location of Uluru
+        const lat = parseFloat($('#latitude').val())
+        const long = parseFloat($('#longitude').val())
+        const uluru = { lat: lat, lng: long };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+        });
+        }
+</script>

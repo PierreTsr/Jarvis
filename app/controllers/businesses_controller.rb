@@ -60,9 +60,8 @@ class BusinessesController < ApplicationController
     id = params[:id]
     @business = Business.find(id)
     @working_hours = JSON.parse @business.working_hours
-    puts 'HERE'
-    puts @working_hours
     @rating = Review.get_rating(id)
+    @features = @business.special_features.split(',')
     @reviews = Review.get_reviews(id).order(created_at: :desc).paginate(page: params[:page], per_page: 2)
   end
   
