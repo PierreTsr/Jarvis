@@ -42,6 +42,12 @@
                       
                       <% if user_signed_in? %>
                         <%= content_tag :li ,class: "nav-item" do%>
+                          <%=link_to  edit_user_registration_path, class:"nav-link" do%>
+                            <i class="batch-icon batch-icon-search"></i>
+                            My account
+                          <%end%>
+                        <%end%>
+                        <%= content_tag :li ,class: "nav-item" do%>
                             <%=link_to  destroy_user_session_path, method: "delete", class:"nav-link" do%>
                             <i class="batch-icon batch-icon-search"></i>
                             Sign Out
