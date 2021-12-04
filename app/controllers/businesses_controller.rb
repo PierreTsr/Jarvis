@@ -15,6 +15,7 @@ class BusinessesController < ApplicationController
    # if there is a category
     if !params[:category].nil?
       @category = params[:category]
+      print @user.as_json
       zip_code = @user.zip_code if @user
       latitude = @user.latitude if @user
       longitude = @user.longitude if @user
