@@ -11,7 +11,11 @@ class BusinessesController < ApplicationController
     @all_prices = {'$'=>"1",'$$' => "2",'$$$' => "3", '$$$$' => "4"}
     @all_ratings = {'1.0'=>1,'2.0' => 2,'3.0' => 3,'4.0' => 4,'5.0' => 5}
 
-
+    print @user
+    if @user.nil? 
+      redirect_to questions_users_path
+      return
+    end
    # if there is a category
     if !params[:category].nil?
       @category = params[:category]
@@ -51,7 +55,7 @@ class BusinessesController < ApplicationController
       @distances = helpers.relative_distances_for_all_businesses(cds, coords)
       @businesses = @businesses.zip(@distances).sort_by{ |business,distance| distance}
     else
-      redirect_to questions_users_path
+      redirect_to categories_path
     end
     #  redirect_to recommendations_path(:category => @category, :ratings => @all_ratings, :prices => @all_prices)
   end
