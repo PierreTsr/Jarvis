@@ -9,22 +9,22 @@ Background: on the question page, un-authenticated
   Given I am on the Questions page
   And I am not authenticated
 
-Scenario: ask questions on the question page
+  Scenario: ask questions on the question page
 
-  Then I should see "Which country are you coming from?"
-  And I should see "Which city are you traveling to?"
-  And I should see "What is your work category?"
-  And I should see "What is your budget?"
+    Then I should see "Which country are you coming from?"
+    And I should see "Which city are you traveling to?"
+    And I should see "What is your work category?"
+    And I should see "What is your budget?"
 
-Scenario: answer questions and redirect to the Dashboard
+  Scenario: answer questions and redirect to the Dashboard
 
-  Given I answer all the questions with: France, 1000 5th Ave New York, student, 2, 40.72273293527885, -74.00360957704073
-  Given I uncheck "create_account"
-  And I press "Submit"
-  Then I should be on the Category page
+    Given I answer all the questions with:France,1000 5th Ave New York,student,2,40.72273293527885,-74.00360957704073
+    Given I uncheck "create_account"
+    Given I press "Get Recommendations"
+    Then I should be on the Category page
 
-Scenario: missing answer
-
-  Given I answer all the questions with: France, , Student, 2, , ,
-  And I press "Submit"
-  Then I should be on the Questions page
+  Scenario: missing answer
+  
+    Given I answer all the questions with:France,,student,2,,,
+    And I press "Submit"
+    Then I should be on the Questions page
