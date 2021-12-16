@@ -13,9 +13,9 @@ Background: on the starting page, un-authenticated
 Scenario: create an account
 
   Given I follow "Get Started"
-  And I answer all the questions with:France,1000 5th Ave New York,student,2,40.72273293527885, -74.00360957704073
+  And I answer all the questions with:France,1000 5th Ave New York,student,2,40.7807561,-73.9698415
   And I check "create_account"
-  And I press "Submit"
+  And I press "Get Recommendations"
   Then I should be on the Sign Up page
   Given I fill in "user_email" with "test@test.com"
   And I fill in "user_name" with "test"

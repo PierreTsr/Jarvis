@@ -25,6 +25,6 @@ Background: on the question page, un-authenticated
 
   Scenario: missing answer
   
-    Given I answer all the questions with:France,,student,2,,,
-    And I press "Submit"
+    Given I answer all the questions with:France,,student,2,,
+    Given I press "Get Recommendations"
     Then I should be on the Questions page
