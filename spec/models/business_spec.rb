@@ -13,23 +13,23 @@ RSpec.describe Business, type: :model do
   
   it "should return businesses from the category" do
     # allow(Business.new).to receive(:get_business_from_category).with('grocery').and_return([{:name => 'Westside Market'}])
-    expect(Business.new.get_business_from_category('groceries', 10025).any? { |business| business['name'] == 'Westside Market' }).to be_truthy
-    expect(Business.new.get_business_from_category('groceries', 10025).any? { |business| business['name'] == 'Citibank' }).to be_falsy
+    expect(Business.businesses_with_ratings_prices('groceries', [1.0, 2.0, 3.0, 4.0], ["$", "$$","$$$", "$$$$"], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'H Mart' }).to be_truthy
+    expect(Business.businesses_with_ratings_prices('groceries', [1.0, 2.0, 3.0, 4.0], ["$", "$$","$$$", "$$$$"], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'Citibank' }).to be_falsy
   end
 
   it "should filter by price" do
-    expect(Business.new.get_business_from_category('hardware', 10025).with_prices("$").any? { |business| business['name'] == 'Garcia Hardware' }).to be_truthy
-    expect(Business.new.get_business_from_category('hardware', 10025).with_prices("$").any? { |business| business['name'] == 'Nanz Custom Hardware' }).to be_falsy
+    expect(Business.businesses_with_ratings_prices('hardware', [1.0, 2.0, 3.0, 4.0], ["$"], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'Garcia Hardware' }).to be_truthy
+    expect(Business.businesses_with_ratings_prices('hardware', [1.0, 2.0, 3.0, 4.0], ["$"], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'Nanz Custom Hardware' }).to be_falsy
   end
 
   it "should filter by rating" do
-    expect(Business.new.get_business_from_category('hardware', 10025).with_ratings("hardware",[3.0]).any? { |business| business['name'] == 'United Hardware' }).to be_truthy
-    expect(Business.new.get_business_from_category('hardware', 10025).with_ratings("hardware",[3.0]).any? { |business| business['name'] == 'Garcia Hardware' }).to be_falsy
+    expect(Business.businesses_with_ratings_prices('hardware', [3.0], ['$', '$$', '$$$', '$$$$'], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'United Hardware' }).to be_truthy
+    expect(Business.businesses_with_ratings_prices('hardware', [3.0], ['$', '$$', '$$$', '$$$$'], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'Garcia Hardware' }).to be_falsy
   end
 
   it "should filter by both ratings and prices" do
-    expect(Business.new.get_business_from_category('groceries', 10025).with_ratings_prices("groceries", ["2.0", "4.0"], ["$"]).any? { |business| business['name'] == 'Hong Kong Supermarket' }).to be_truthy
-    expect(Business.new.get_business_from_category('groceries', 10025).with_ratings_prices("groceries", ["2.0"], ["$"]).any? { |business| business['name'] == 'Hamilton Deli' }).to be_falsy
+    expect(Business.businesses_with_ratings_prices('groceries', [2.0, 4.0], ['$'], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'ALDI' }).to be_truthy
+    expect(Business.businesses_with_ratings_prices('groceries', [2.0], ['$'], {:top => [40.7, -74], :bottom => [40.81, -73.8]}).any? { |business| business['name'] == 'Hamilton Deli' }).to be_falsy
   end
 
   

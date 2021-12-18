@@ -19,12 +19,11 @@ $(document).ready(function() {
     }
   })
   $('.next').click(function (e) {
-    console.log(e.target)
     let field;
-    if(e.target.id == 'create_account') {
+    if(e.target.id == 'create_account_next_btn') {
       field = e.currentTarget.parentElement.children[1].children[1];
     } else {
-        field = e.currentTarget.parentElement.children[1].children[0];
+      field = e.currentTarget.parentElement.children[1].children[0];
     }
     console.log("Field Value", field.value)
     if(field.value.trim() == 0 || field.value.trim().toLowerCase() == 'select country') {
